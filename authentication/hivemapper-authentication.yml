@@ -1,0 +1,29 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.beemaps.com/api-reference
+docs: https://docs.beemaps.com/api-reference
+summary:
+  types: [http, apiKey]
+  http_schemes: [basic]
+  api_key_in: [query]
+schemes:
+  - name: basicAuth
+    type: http
+    scheme: basic
+    description: >-
+      HTTP Basic authentication. Send Authorization: Basic <base64(username:api-key)>.
+      The hive-py SDK expects a base64-encoded "username:api-key" string as the
+      Basic credential.
+    sources: [openapi/hivemapper-beemaps-openapi.yml, https://github.com/Hivemapper/hive-py]
+  - name: apiKeyQuery
+    type: apiKey
+    in: query
+    param: apiKey
+    description: >-
+      API key passed as the apiKey query parameter. Also used to authenticate the
+      MCP endpoint (POST /api/developer/mcp).
+    sources: [https://docs.beemaps.com/api-reference]
+notes: >-
+  API keys are issued from the Bee Maps developer dashboard
+  (https://beemaps.com/developers). No OAuth2 / OpenID Connect surface is
+  documented, so no scopes/ artifact applies.
