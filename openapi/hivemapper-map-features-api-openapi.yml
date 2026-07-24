@@ -1,0 +1,244 @@
+openapi: 3.1.0
+info:
+  title: Bee Maps (Hivemapper) Developer Account Map Features API
+  version: '1.0'
+  x-generated: '2026-07-19'
+  x-method: generated
+  x-source: https://docs.beemaps.com/api-reference
+  description: The Bee Maps (Hivemapper) Developer API delivers fresh street-level imagery, ML-detected map features, AI event videos, and on-demand mapping (Bursts) from the world's largest decentralized dashcam network. Data is queried by point, polygon, or linestring and billed on a two-tier model (API credits per query plus per-view USD metering for signed imagery URLs). Requests are limited to a maximum query area of 5 sq km and use GeoJSON [longitude, latitude] coordinate order. This specification was generated faithfully from the public Bee Maps API reference; it is not a provider-published OpenAPI document.
+  contact:
+    name: Bee Maps
+    email: hi@hivemapper.com
+    url: https://docs.beemaps.com
+  license:
+    name: Bee Maps API Terms
+    url: https://hivemapper.com/tos
+servers:
+- url: https://beemaps.com/api/developer
+  description: Bee Maps Developer API (current)
+- url: https://hivemapper.com/api/developer
+  description: Legacy Hivemapper Developer API host
+security:
+- basicAuth: []
+- apiKeyQuery: []
+tags:
+- name: Map Features
+  description: ML-detected road objects and features.
+paths:
+  /map-data:
+    post:
+      operationId: queryMapData
+      summary: Query map features and/or imagery within an area
+      description: Unified endpoint to query map features and/or street-level imagery within a geographic area (Point with radius, LineString with buffer, or Polygon). Returns credit accounting alongside results.
+      tags:
+      - Map Features
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MapDataQuery'
+      responses:
+        '200':
+          description: Map data results with credit accounting.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapDataResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /mapFeatures/poly:
+    post:
+      operationId: queryMapFeaturesByPolygon
+      summary: Query detected road features within a polygon
+      description: Query ML-detected road features (speed limit signs, stop signs, yield signs, turn restrictions, traffic lights, fire hydrants, lane lines, parking restrictions, highway signs) within a polygon boundary.
+      tags:
+      - Map Features
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolygonQuery'
+      responses:
+        '200':
+          description: Array of detected map features.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MapFeature'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    Position:
+      type: object
+      properties:
+        lon:
+          type: number
+        lat:
+          type: number
+        alt:
+          type: number
+        azimuth:
+          type: number
+    GeoJSONGeometry:
+      type: object
+      description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+        coordinates: {}
+        radius:
+          type: number
+          description: Radius in meters (for Point queries).
+        buffer:
+          type: number
+          description: Buffer in meters (for LineString queries).
+      required:
+      - type
+      - coordinates
+    Frame:
+      type: object
+      description: A street-level dashcam frame.
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Signed image URL.
+        timestamp:
+          type: string
+          format: date-time
+        position:
+          $ref: '#/components/schemas/Position'
+        idImu:
+          type: object
+          additionalProperties: true
+          description: IMU data.
+        deviceType:
+          type: string
+          enum:
+          - hdc
+          - hdcs
+          - bee
+        width:
+          type: integer
+        height:
+          type: integer
+    MapFeature:
+      type: object
+      description: An ML-detected road feature.
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        class:
+          type: string
+          description: Feature class (e.g. speed-limit-sign, stop-sign, fire-hydrant).
+        properties:
+          type: object
+          additionalProperties: true
+          description: Feature-specific properties (speedLimit, unit, regulatory, ...).
+        position:
+          $ref: '#/components/schemas/Position'
+        confidence:
+          type: number
+          description: Detection confidence score.
+        observedAt:
+          type: array
+          items:
+            type: string
+            format: date-time
+    MapDataQuery:
+      type: object
+      properties:
+        type:
+          type: array
+          items:
+            type: string
+            enum:
+            - mapFeatures
+            - imagery
+          description: Which result families to return.
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        startDate:
+          type: string
+          description: YYYY-MM-DD; defaults to one week ago.
+      required:
+      - type
+      - geometry
+    PolygonQuery:
+      type: object
+      properties:
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+      required:
+      - geometry
+    MapDataResult:
+      type: object
+      properties:
+        totalCreditsUsed:
+          type: number
+        totalCreditsRemaining:
+          type: number
+        mapFeatureResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/MapFeature'
+        imageryResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/Frame'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        statusCode:
+          type: integer
+  responses:
+    Unauthorized:
+      description: Authentication failed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: 'HTTP Basic authentication. Send Authorization: Basic <base64(username:api-key)>.'
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: API key passed as the apiKey query parameter.
