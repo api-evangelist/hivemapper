@@ -1,0 +1,61 @@
+# Bee Maps
+
+> For the complete API reference with request/response examples, see [llms-full.txt](https://beemaps.com/llms-full.txt).
+
+> Bee Maps is a physical AI data platform that delivers fresh street-level imagery, map features, and AI event videos through APIs — powered by the world's largest decentralized dashcam network. 750M+ km mapped, 37% global road coverage, 22M unique km.
+
+Bee Maps turns a planetary-scale network of purpose-built dashcams into structured, queryable data for mapmakers, autonomous vehicle developers, fleet operators, and AI/ML teams. Data is collected passively by distributed drivers, processed through on-device and cloud ML pipelines, and delivered via REST APIs.
+
+Key customers include HERE Technologies, Lyft, NBC Universal, Mapbox, Volkswagen, and other enterprise mapping and mobility companies.
+
+## Data Products
+
+- [Street-Level Imagery API](https://docs.beemaps.com/platform/road-intelligence-api): Query geolocated dashcam frames by point, polygon, or linestring — returns image URLs, timestamps, GPS coordinates, and IMU data. $0.005/image.
+- [Map Features API](https://docs.beemaps.com/platform/road-intelligence-api): ML-detected road objects (speed limit signs, stop signs, fire hydrants, traffic lights, lane markings) with confidence scores and coordinates. US, EU, UK coverage. $3/1K detections.
+- [AI Event Videos API](https://docs.beemaps.com/platform/road-intelligence-api): Video clips of driving events (speeding, harsh braking, swerving, tailgating) with synchronized sensor data. $6/video.
+- [Burst (On-Demand Mapping)](https://docs.beemaps.com/platform/road-intelligence-api): Request fresh imagery for specific locations — network devices are dispatched to capture it. Pay only on success. $1/location.
+
+## Edge AI
+
+- [Bee Edge AI](https://docs.beemaps.com/platform/bee-edge-ai): Deploy custom Python ML workloads directly on Bee cameras. Access 12.3MP camera, stereo depth, GPS, IMU, and 5.1 TOPS NPU for on-device inference. Over-the-air deployment to devices worldwide.
+  - Own Devices: $15/device/month (includes 1 GB data), $3/GB overage.
+  - Network Devices: $0.02/km (includes 5 MB/km data), $0.05/10 MB overage.
+
+## Hardware
+
+- [The Bee Camera](https://beemaps.com/bee): Purpose-built dashcam with custom optics, mapping-grade image sensor, GPS/IMU fusion, LTE connectivity (Helium Mobile), and on-device ML. Four hardware generations.
+
+## Fleet Management
+
+- [Beekeeper](https://beemaps.com/beekeeper): AI-powered fleet management — real-time vehicle tracking, dashcam live view, AI safety event detection, and fleet-specific map intelligence.
+
+## Pricing
+
+Consumption-based, no upfront commitments. Full details at [beemaps.com/pricing](https://beemaps.com/pricing).
+
+### Data APIs
+- Street-Level Imagery: $0.005/image
+- Map Features (Road Detections): $3/1K detections
+- AI Event Videos: $6/video
+- Burst (On-Demand Mapping): $1/location (pay only on success)
+
+### Edge AI
+- Own Devices: $15/device/month (includes 1 GB data), $3/GB overage
+- Network Devices: $0.02/km (includes 5 MB/km data), $0.05/10 MB overage
+
+## Documentation
+
+- [API Documentation](https://docs.beemaps.com): Full developer docs including API reference, Edge AI SDK, and integration guides.
+- [API Playground](https://beemaps.com/developers?tab=playground): Interactive API testing environment.
+
+## Company
+
+- [About](https://beemaps.com/about): Company background, vision, and hardware evolution.
+- [Blog](https://beemaps.com/blog): Product updates, technical deep-dives, customer stories, and industry analysis.
+- [Contact](https://beemaps.com/contact): Sales and partnership inquiries.
+
+## Optional
+
+- [LinkedIn](https://www.linkedin.com/company/bee-maps)
+- [Bee Maps on X](https://x.com/TryBeeMaps)
+- [Ariel Seidman on X](https://x.com/aseidman)

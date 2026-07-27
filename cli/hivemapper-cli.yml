@@ -1,0 +1,28 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/Hivemapper/hive-py
+name: hive-py
+description: >-
+  Command-line query tools shipped in the official hivemapper-python SDK for the
+  Imagery, Bursts, and Map Features APIs.
+install:
+  - pip install hivemapper-python
+auth:
+  flag: -a / --authorization
+  value: base64-encoded username:api-key
+commands:
+  - name: imagery.query
+    invoke: python -m imagery.query
+    description: >-
+      Query and download street-level imagery by polygon or segment IDs, with
+      stitching, azimuth filtering, EXIF update, map-matching, GeoJSON export,
+      and batching options.
+    key_flags: [-i/--input_file, -sg/--segment_ids, -s/--start_day, -e/--end_day, -L/--latest, -o/--output_dir, -x/--stitch, -a/--authorization]
+  - name: bursts.query
+    invoke: python -m bursts.query
+    description: Create on-demand mapping bursts from a GeoJSON input file.
+    key_flags: [-i/--input_file, -a/--authorization]
+  - name: mapfeatures.query
+    invoke: python -m mapfeatures.query
+    description: Query detected road features within a polygon and download feature imagery.
+    key_flags: [-i/--input_file, -o/--output_dir, -w/--width, -a/--authorization]

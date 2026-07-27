@@ -1,0 +1,16 @@
+generated: '2026-07-19'
+method: searched
+hosts:
+  - host: https://hivemapper.com
+    documents:
+      - { path: /.well-known/security.txt, status: 404 }
+      - { path: /.well-known/openid-configuration, status: 404 }
+      - { path: /.well-known/oauth-authorization-server, status: 404 }
+      - { path: /.well-known/api-catalog, status: 404 }
+      - { path: /.well-known/ai-plugin.json, status: 404 }
+  - host: https://beemaps.com
+    documents:
+      - { path: /.well-known/security.txt, status: 404 }
+notes: >-
+  No /.well-known/ discovery documents are published on either the hivemapper.com
+  or beemaps.com hosts as of this probe. Absence is valid recorded data.

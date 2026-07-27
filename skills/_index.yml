@@ -1,0 +1,12 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/hivemapper-beemaps-openapi.yml
+skills:
+  - file: hivemapper-query-imagery.md
+    name: Query street-level imagery for an area
+    api: openapi/hivemapper-beemaps-openapi.yml
+    operations: [queryLatestImagery, queryImageryByPolygon, getDevices]
+  - file: hivemapper-map-features-and-events.md
+    name: Pull road features and AI driving events
+    api: openapi/hivemapper-beemaps-openapi.yml
+    operations: [queryMapData, queryMapFeaturesByPolygon, searchAIEvents, getAIEvent]

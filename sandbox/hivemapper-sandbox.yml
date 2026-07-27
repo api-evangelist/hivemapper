@@ -1,0 +1,16 @@
+generated: '2026-07-19'
+method: searched
+source: https://beemaps.com/developers?tab=playground
+type: playground
+playground:
+  url: https://beemaps.com/developers?tab=playground
+  description: >-
+    Interactive API testing environment ("API Playground") in the Bee Maps
+    developer hub for exercising the Developer API from the browser.
+test_data:
+  documented: false
+  notes: >-
+    Bee Maps does not publish static magic test values or a separate sandbox
+    key prefix; queries run against live network data and consume credits.
+    The /devices endpoint (camera calibration) is unauthenticated and safe to
+    call for a connectivity check.

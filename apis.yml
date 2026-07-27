@@ -1,28 +1,219 @@
 aid: hivemapper
 name: Hivemapper
-description: 'Hivemapper is a company surfaced as a portfolio company of homebrew, multicoin-capital and
-  added to the API Evangelist network as a stub for enrichment. Sector: logistics. This profile is a lead
-  awaiting the enrichment pipeline.'
+description: >-
+  Hivemapper (Bee Maps) is a decentralized mapping network that turns a
+  planetary-scale fleet of purpose-built "Bee" dashcams into fresh, structured,
+  queryable street-level data. Contributors passively collect imagery while
+  driving and earn HONEY tokens on Solana; the data is processed through
+  on-device and cloud ML pipelines and delivered to developers as REST APIs.
+  The Bee Maps Developer API offers a Street-Level Imagery API, a Map Features
+  API (ML-detected signs, hydrants, lane lines and more), an AI Event Videos
+  API (harsh braking, swerving, violations with synchronized sensor data), and
+  Burst on-demand mapping, plus Edge AI for deploying custom ML workloads to
+  cameras. Enterprise customers include HERE Technologies, Lyft, Mapbox, and
+  Volkswagen. Billing is consumption-based (API credits plus per-view metering).
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://hivemapper.com/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/hivemapper/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - homebrew
 - multicoin-capital
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Logistics
-apis: []
+- Mapping
+- Geospatial
+- Imagery
+- Location
+- Street View
+- Mobility
+- Machine Learning
+- Web3
+apis:
+- aid: hivemapper:hivemapper-account-api
+  name: Hivemapper Account API
+  description: Devices, calibration, and query history.
+  humanURL: https://docs.beemaps.com/api-reference
+  baseURL: https://beemaps.com/api/developer
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/hivemapper-account-api-openapi.yml
+  - type: Authentication
+    url: authentication/hivemapper-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hivemapper-problem-types.yml
+  - type: Conventions
+    url: conventions/hivemapper-conventions.yml
+  - type: DataModel
+    url: data-model/hivemapper-data-model.yml
+  - type: Conformance
+    url: conformance/hivemapper-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hivemapper-lifecycle.yml
+- aid: hivemapper:hivemapper-ai-events-api
+  name: Hivemapper AI Events API
+  description: AI-detected driving event videos with synchronized sensor data.
+  humanURL: https://docs.beemaps.com/api-reference
+  baseURL: https://beemaps.com/api/developer
+  tags:
+  - AI Events
+  properties:
+  - type: OpenAPI
+    url: openapi/hivemapper-ai-events-api-openapi.yml
+  - type: Authentication
+    url: authentication/hivemapper-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hivemapper-problem-types.yml
+  - type: Conventions
+    url: conventions/hivemapper-conventions.yml
+  - type: DataModel
+    url: data-model/hivemapper-data-model.yml
+  - type: Conformance
+    url: conformance/hivemapper-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hivemapper-lifecycle.yml
+- aid: hivemapper:hivemapper-bursts-api
+  name: Hivemapper Bursts API
+  description: On-demand incentivized mapping requests.
+  humanURL: https://docs.beemaps.com/api-reference
+  baseURL: https://beemaps.com/api/developer
+  tags:
+  - Bursts
+  properties:
+  - type: OpenAPI
+    url: openapi/hivemapper-bursts-api-openapi.yml
+  - type: Authentication
+    url: authentication/hivemapper-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hivemapper-problem-types.yml
+  - type: Conventions
+    url: conventions/hivemapper-conventions.yml
+  - type: DataModel
+    url: data-model/hivemapper-data-model.yml
+  - type: Conformance
+    url: conformance/hivemapper-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hivemapper-lifecycle.yml
+- aid: hivemapper:hivemapper-imagery-api
+  name: Hivemapper Imagery API
+  description: Street-level dashcam imagery queries.
+  humanURL: https://docs.beemaps.com/api-reference
+  baseURL: https://beemaps.com/api/developer
+  tags:
+  - Imagery
+  properties:
+  - type: OpenAPI
+    url: openapi/hivemapper-imagery-api-openapi.yml
+  - type: Authentication
+    url: authentication/hivemapper-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hivemapper-problem-types.yml
+  - type: Conventions
+    url: conventions/hivemapper-conventions.yml
+  - type: DataModel
+    url: data-model/hivemapper-data-model.yml
+  - type: Conformance
+    url: conformance/hivemapper-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hivemapper-lifecycle.yml
+- aid: hivemapper:hivemapper-map-features-api
+  name: Hivemapper Map Features API
+  description: ML-detected road objects and features.
+  humanURL: https://docs.beemaps.com/api-reference
+  baseURL: https://beemaps.com/api/developer
+  tags:
+  - Map Features
+  properties:
+  - type: OpenAPI
+    url: openapi/hivemapper-map-features-api-openapi.yml
+  - type: Authentication
+    url: authentication/hivemapper-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hivemapper-problem-types.yml
+  - type: Conventions
+    url: conventions/hivemapper-conventions.yml
+  - type: DataModel
+    url: data-model/hivemapper-data-model.yml
+  - type: Conformance
+    url: conformance/hivemapper-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hivemapper-lifecycle.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/hivemapper-domain-security.yml
 - type: Website
   url: https://hivemapper.com
+- type: DeveloperPortal
+  url: https://beemaps.com/developers
+- type: Documentation
+  url: https://docs.beemaps.com
+- type: APIReference
+  url: https://docs.beemaps.com/api-reference
+- type: GettingStarted
+  url: https://docs.beemaps.com/platform/road-intelligence-api
+- type: Pricing
+  url: https://beemaps.com/pricing
+- type: SignUp
+  url: https://beemaps.com/login
+- type: Blog
+  url: https://beemaps.com/blog
+- type: Support
+  url: https://beemaps.com/contact
+- type: TermsOfService
+  url: https://hivemapper.com/tos
+- type: PrivacyPolicy
+  url: https://hivemapper.com/privacy/privacy-policy
+- type: GitHubOrganization
+  url: https://github.com/Hivemapper
+- type: Sandbox
+  url: sandbox/hivemapper-sandbox.yml
+- type: CLI
+  url: cli/hivemapper-cli.yml
+- type: MCPServer
+  url: mcp/hivemapper-mcp.yml
+- type: LLMsTxt
+  url: llms/hivemapper-llms.txt
+- type: Packages
+  url: packages/hivemapper-packages.yml
+- type: SDKs
+  url: packages/hivemapper-packages.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: WellKnown
+  url: well-known/hivemapper-well-known.yml
+- type: X
+  url: https://x.com/TryBeeMaps
+- type: LinkedIn
+  url: https://www.linkedin.com/company/bee-maps
+- type: Discord
+  url: https://discord.com/invite/FRWMKyy5v2
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

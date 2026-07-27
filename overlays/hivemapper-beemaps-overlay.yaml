@@ -1,0 +1,25 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Bee Maps (Hivemapper) Developer API
+  version: 1.0.0
+extends: openapi/hivemapper-beemaps-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: true
+      x-api-evangelist: https://apis.io/hivemapper
+      x-mcp-endpoint: https://beemaps.com/api/developer/mcp
+  - target: $.info
+    update:
+      x-agent-ready: true
+      x-billing-model: two-tier (API credits + per-view USD metering)
+  - target: $.tags
+    update:
+      - name: Imagery
+        x-product: Street-Level Imagery API
+      - name: Map Features
+        x-product: Map Features API
+      - name: AI Events
+        x-product: AI Event Videos API
+      - name: Bursts
+        x-product: Burst (On-Demand Mapping)

@@ -1,0 +1,33 @@
+generated: '2026-07-19'
+method: searched
+status: published
+source: https://docs.beemaps.com/api-reference
+server:
+  name: bee-maps
+  transport: http
+  description: >-
+    Bee Maps exposes an MCP Streamable HTTP endpoint on the Developer API that
+    accepts JSON-RPC messages. Authentication is via the apiKey parameter (the
+    same API key used for the REST Developer API).
+  url: https://beemaps.com/api/developer/mcp
+  auth:
+    type: apiKey
+    param: apiKey
+tools:
+  - name: query_imagery
+    description: Query street-level imagery by point, polygon, or linestring.
+    source_operation: openapi/hivemapper-beemaps-openapi.yml#queryImageryByPolygon
+  - name: query_map_features
+    description: Query ML-detected road features within an area.
+    source_operation: openapi/hivemapper-beemaps-openapi.yml#queryMapFeaturesByPolygon
+  - name: search_ai_events
+    description: Search AI-detected driving events.
+    source_operation: openapi/hivemapper-beemaps-openapi.yml#searchAIEvents
+  - name: create_burst
+    description: Create an on-demand mapping burst for a location.
+    source_operation: openapi/hivemapper-beemaps-openapi.yml#createBurst
+notes: >-
+  The MCP endpoint is documented in the Bee Maps API reference as
+  "POST /mcp — MCP Streamable HTTP Transport for JSON-RPC messages". Tool list
+  above is derived from the documented REST operations; the exact tool names the
+  server advertises should be confirmed against a live MCP initialize/list call.

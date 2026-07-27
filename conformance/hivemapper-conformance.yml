@@ -1,0 +1,27 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/hivemapper-beemaps-openapi.yml
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: API uses HTTP Basic and apiKey query auth, not OAuth2.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors are plain application/json, not application/problem+json.
+  - id: geojson
+    conforms: true
+    evidence: Queries and responses use GeoJSON geometries with [lon, lat] order.
+  - id: rest-json
+    conforms: true
+    evidence: JSON request/response REST API over HTTPS.
+  - id: mcp
+    conforms: true
+    evidence: Publishes an MCP Streamable HTTP endpoint (POST /api/developer/mcp).
+  - id: pagination
+    conforms: true
+    evidence: limit/offset and limit/skip pagination on list endpoints.
+notes: >-
+  No published third-party compliance certifications (SOC 2, ISO 27001, PCI,
+  HIPAA, FedRAMP) were found, so no Compliance pointer is emitted.

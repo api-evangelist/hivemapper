@@ -1,0 +1,22 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.beemaps.com
+versioning:
+  scheme: uri-path
+  current: developer
+  notes: >-
+    The Developer API is served under a single /api/developer path prefix with no
+    explicit version segment. A legacy host (hivemapper.com/api/developer) and the
+    current host (beemaps.com/api/developer) both resolve.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No published deprecation/sunset policy was found.
+sla:
+  url: null
+status_page: null
+deprecated_operations: []
+notes: >-
+  No dedicated status page (status.hivemapper.com does not resolve) and no formal
+  deprecation policy or SLA are published. Network health/coverage is surfaced on
+  hivemapper.com/coverage and the explorer, not as an API status page.

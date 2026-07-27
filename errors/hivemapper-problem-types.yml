@@ -1,0 +1,39 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/hivemapper-beemaps-openapi.yml
+format: json
+envelope:
+  content_type: application/json
+  fields: [error, statusCode]
+notes: >-
+  The Bee Maps Developer API returns JSON error bodies (not RFC 9457
+  application/problem+json). Status codes are documented in the API reference.
+problems:
+  - status: 400
+    title: Bad request
+    remediation: >-
+      Check the request body — geometry must be valid GeoJSON with [lon, lat]
+      order and the query area must not exceed 5 sq km; AI event date ranges must
+      be within 31 days.
+    source_operations:
+      - openapi/hivemapper-beemaps-openapi.yml#queryImageryByPolygon
+      - openapi/hivemapper-beemaps-openapi.yml#queryMapFeaturesByPolygon
+      - openapi/hivemapper-beemaps-openapi.yml#searchAIEvents
+  - status: 401
+    title: Authentication failed
+    remediation: >-
+      Provide a valid API key via HTTP Basic (base64 username:api-key) or the
+      apiKey query parameter.
+  - status: 403
+    title: Forbidden / access denied
+    remediation: >-
+      The API key lacks access to the requested product or region, or credits
+      are exhausted.
+  - status: 404
+    title: Resource not found
+    remediation: Verify the resource id (e.g. AI event id) exists.
+    source_operations:
+      - openapi/hivemapper-beemaps-openapi.yml#getAIEvent
+  - status: 500
+    title: Server error
+    remediation: Retry with backoff; contact hi@hivemapper.com if it persists.

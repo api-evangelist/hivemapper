@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: hivemapper.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  1 05:27:20 2026 GMT
+  hsts: false
+- host: docs.beemaps.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 28 10:33:01 2026 GMT
+  hsts: false
+- host: beemaps.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 28 10:33:01 2026 GMT
+  hsts: false
+domains:
+- domain: hivemapper.com
+  dnssec: true
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
+- domain: beemaps.com
+  dnssec: true
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine

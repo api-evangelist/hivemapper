@@ -1,0 +1,42 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/hivemapper-beemaps-openapi.yml
+entities:
+  - name: Frame
+    description: A geolocated street-level dashcam image with position, IMU, and device metadata.
+    key_fields: [url, timestamp, position, deviceType]
+  - name: MapFeature
+    description: An ML-detected road object (sign, hydrant, lane line, etc.) with confidence and position.
+    key_fields: [id, class, confidence, position]
+  - name: AIEvent
+    description: An AI-detected driving event (braking, swerving, violation) with a video clip and sensor data.
+    key_fields: [id, type, timestamp, location, videoUrl]
+  - name: HoneyBurst
+    description: An on-demand incentivized mapping request for a location.
+    key_fields: [_id, geojson, status, isHit]
+  - name: Device
+    description: A camera device type (hdc, hdcs, bee) with calibration intrinsics.
+    key_fields: [deviceType]
+  - name: HistoryEntry
+    description: A record of a past API query and its credit consumption.
+    key_fields: [area, timestamp, credits]
+relationships:
+  - from: Frame
+    to: Device
+    type: belongs_to
+    via: deviceType
+  - from: AIEvent
+    to: Frame
+    type: has_many
+    via: videoUrl
+    notes: An AI event references synchronized video/imagery frames.
+  - from: MapFeature
+    to: Frame
+    type: has_many
+    via: observedAt
+    notes: A feature is observed across one or more frames/timestamps.
+  - from: HoneyBurst
+    to: Frame
+    type: has_many
+    via: geojson
+    notes: A successful burst yields new imagery frames for its area.

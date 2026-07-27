@@ -1,0 +1,22 @@
+{
+  "provider": "hivemapper",
+  "sources": [
+    "hivemapper-account-api-openapi.yml",
+    "hivemapper-ai-events-api-openapi.yml",
+    "hivemapper-bursts-api-openapi.yml",
+    "hivemapper-imagery-api-openapi.yml",
+    "hivemapper-map-features-api-openapi.yml"
+  ],
+  "outputs": [
+    "hivemapper-account-api-openapi.yml",
+    "hivemapper-ai-events-api-openapi.yml",
+    "hivemapper-bursts-api-openapi.yml",
+    "hivemapper-imagery-api-openapi.yml",
+    "hivemapper-map-features-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

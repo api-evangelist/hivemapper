@@ -1,0 +1,35 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.beemaps.com/api-reference
+authentication:
+  style: HTTP Basic (base64 username:api-key) or apiKey query parameter
+  ref: authentication/hivemapper-authentication.yml
+geospatial:
+  coordinate_order: "[longitude, latitude] (GeoJSON standard)"
+  geometry_types: [Point (with radius), LineString (with buffer), Polygon]
+  max_query_area_sq_km: 5
+pagination:
+  style: offset
+  params: [limit, offset, skip]
+  notes: >-
+    AI event search uses limit (max 500) + offset; burst listing and history use
+    limit + skip. Imagery/map-feature polygon queries are area-bounded rather than
+    paginated.
+date_windows:
+  ai_events_max_days: 31
+  imagery_week_format: YYYY-mm-dd
+billing:
+  model: two-tier
+  description: >-
+    API credits are consumed per query (returned as totalCreditsUsed /
+    totalCreditsRemaining on map-data responses and via /history), plus per-view
+    USD metering on signed imagery URLs.
+  ref: finops
+idempotency:
+  supported: false
+  notes: No idempotency-key header or contract is documented.
+errors:
+  ref: errors/hivemapper-problem-types.yml
+  envelope: application/json { error, statusCode }
+rate_limit_signaling:
+  documented: false

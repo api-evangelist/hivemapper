@@ -1,0 +1,31 @@
+generated: '2026-07-19'
+method: searched
+source: https://pypi.org/project/hivemapper-python/
+packages:
+  - language: python
+    registry: pypi
+    name: hivemapper-python
+    url: https://pypi.org/project/hivemapper-python/
+    install: pip install hivemapper-python
+    version: 0.4.17
+    official: true
+    repo: https://github.com/Hivemapper/hive-py
+    description: >-
+      Official SDK for the Bee Maps (Hivemapper) Imagery, Bursts, and Map
+      Features APIs, including command-line query tools.
+  - language: python
+    registry: github
+    name: hivemapper-imagery-qgis-plugin
+    url: https://github.com/Hivemapper/hivemapper-imagery-qgis-plugin
+    install: QGIS Plugin Manager
+    official: true
+    description: QGIS plugin for the Hivemapper imagery APIs.
+  - language: javascript
+    registry: github
+    name: hivemapper-scout
+    url: https://github.com/Hivemapper/hivemapper-scout
+    install: git clone
+    official: true
+    description: >-
+      Open-source location monitoring UI for geolocated imagery built on the
+      Bee Maps APIs.
