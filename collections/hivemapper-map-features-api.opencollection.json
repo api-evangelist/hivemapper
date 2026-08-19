@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bee Maps (Hivemapper) Developer Account Map Features API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Map Features",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query map features and/or imagery within an area",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://beemaps.com/api/developer/map-data",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unified endpoint to query map features and/or street-level imagery within a geographic area (Point with radius, LineString with buffer, or Polygon). Returns credit accounting alongside results."
+        },
+        {
+          "info": {
+            "name": "Query detected road features within a polygon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://beemaps.com/api/developer/mapFeatures/poly",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query ML-detected road features (speed limit signs, stop signs, yield signs, turn restrictions, traffic lights, fire hydrants, lane lines, parking restrictions, highway signs) within a polygon boundary."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

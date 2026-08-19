@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bee Maps (Hivemapper) Developer Account API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get camera calibration parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://beemaps.com/api/developer/devices"
+          },
+          "docs": "Get camera intrinsic parameters (focal length, distortion coefficients) for supported device types: hdc (Hivemapper Dashcam), hdcs (Dashcam S), and bee. This endpoint does not require authentication."
+        },
+        {
+          "info": {
+            "name": "Retrieve API query history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://beemaps.com/api/developer/history",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results to return."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset."
+              }
+            ]
+          },
+          "docs": "Retrieve API query history with credit consumption details (queried area, payload geometry, timestamp, weeks queried, and credits consumed)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

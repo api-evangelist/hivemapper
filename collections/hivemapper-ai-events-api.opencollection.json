@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bee Maps (Hivemapper) Developer Account AI Events API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AI Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search AI-detected driving events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://beemaps.com/api/developer/aievents/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search AI-detected driving events (harsh braking, aggressive acceleration, swerving, high speed, high g-force, stop sign violation, traffic light violation, tailgating) within a polygon and date window of up to 31 days."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single AI event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://beemaps.com/api/developer/aievents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Event identifier."
+              },
+              {
+                "name": "includeGnssData",
+                "value": "",
+                "type": "query",
+                "description": "Include GPS array (lat, lon, alt, timestamp)."
+              },
+              {
+                "name": "includeImuData",
+                "value": "",
+                "type": "query",
+                "description": "Include IMU readings (accelerometer/gyroscope)."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific AI event with full details and optional synchronized GNSS and IMU sensor data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

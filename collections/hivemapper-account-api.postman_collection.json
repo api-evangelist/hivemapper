@@ -1,0 +1,370 @@
+{
+  "item": [
+    {
+      "id": "2d28f4ed-aa1f-4276-b97a-b12282844f13",
+      "name": "Account",
+      "description": {
+        "content": "Devices, calibration, and query history.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "227f4bdc-1210-4822-9ace-b0a78a310f17",
+          "name": "Get camera calibration parameters",
+          "request": {
+            "name": "Get camera calibration parameters",
+            "description": {
+              "content": "Get camera intrinsic parameters (focal length, distortion coefficients) for supported device types: hdc (Hivemapper Dashcam), hdcs (Dashcam S), and bee. This endpoint does not require authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c865ed2-f1da-4951-906a-0766b3b623ff",
+              "name": "Camera calibration parameters by device type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 3823.94094107701,\n  \"key_1\": 9762\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4daac4dc-c01e-40b1-aa89-b844188174d7",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 6206\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dccf0ec1-6e50-4768-8c94-8223d980a94d",
+          "name": "Retrieve API query history",
+          "request": {
+            "name": "Retrieve API query history",
+            "description": {
+              "content": "Retrieve API query history with credit consumption details (queried area, payload geometry, timestamp, weeks queried, and credits consumed).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0",
+                  "description": "Pagination offset."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "24b2e095-1249-4859-bcfb-11dd14c2d5b0",
+              "name": "Array of history entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"area\": 453.8967705467711,\n    \"payload\": {\n      \"key_0\": false\n    },\n    \"timestamp\": \"1960-05-25T12:05:14.138Z\",\n    \"weeks\": [\n      \"string\",\n      \"string\"\n    ],\n    \"credits\": 7297.4817412723005\n  },\n  {\n    \"area\": 4231.632400406663,\n    \"payload\": {\n      \"key_0\": \"string\"\n    },\n    \"timestamp\": \"1952-11-28T08:28:33.979Z\",\n    \"weeks\": [\n      \"string\",\n      \"string\"\n    ],\n    \"credits\": 2611.626477599104\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f10c8a76-9f07-4ad1-80c6-f3f46a60580b",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 6206\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84cf5b8e-cb22-4c7b-b67f-f94eacf9b8f9",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 6206\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://beemaps.com/api/developer",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e725dcda-da9c-4b33-898c-bf0ad4f20438",
+    "name": "Bee Maps (Hivemapper) Developer Account API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bee Maps (Hivemapper) Developer API delivers fresh street-level imagery, ML-detected map features, AI event videos, and on-demand mapping (Bursts) from the world's largest decentralized dashcam network. Data is queried by point, polygon, or linestring and billed on a two-tier model (API credits per query plus per-view USD metering for signed imagery URLs). Requests are limited to a maximum query area of 5 sq km and use GeoJSON [longitude, latitude] coordinate order. This specification was generated faithfully from the public Bee Maps API reference; it is not a provider-published OpenAPI document.\n\nContact Support:\n Name: Bee Maps\n Email: hi@hivemapper.com",
+      "type": "text/plain"
+    }
+  }
+}

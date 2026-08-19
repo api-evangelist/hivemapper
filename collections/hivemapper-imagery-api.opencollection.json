@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bee Maps (Hivemapper) Developer Account Imagery API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Imagery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query street-level imagery by polygon and week",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://beemaps.com/api/developer/imagery/poly",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query geolocated dashcam frames captured within a polygon for a specific week. Returns signed image URLs, timestamps, GPS position, IMU data, device type, and image dimensions."
+        },
+        {
+          "info": {
+            "name": "Query the most recent imagery by polygon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://beemaps.com/api/developer/latest/poly",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query the most recent street-level imagery within a polygon, optionally bounded by a minimum week cutoff."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

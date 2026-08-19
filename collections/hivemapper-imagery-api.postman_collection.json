@@ -1,0 +1,611 @@
+{
+  "item": [
+    {
+      "id": "0719416f-d2a7-449b-971a-6b2419bafd82",
+      "name": "Imagery",
+      "description": {
+        "content": "Street-level dashcam imagery queries.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1412085a-a096-4ef3-b940-59b9eadc042f",
+          "name": "Query street-level imagery by polygon and week",
+          "request": {
+            "name": "Query street-level imagery by polygon and week",
+            "description": {
+              "content": "Query geolocated dashcam frames captured within a polygon for a specific week. Returns signed image URLs, timestamps, GPS position, IMU data, device type, and image dimensions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "imagery",
+                "poly"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"geometry\": {\n    \"type\": \"<string>\",\n    \"coordinates\": \"\",\n    \"radius\": \"<number>\",\n    \"buffer\": \"<number>\"\n  },\n  \"week\": \"<string>\",\n  \"headings\": \"<boolean>\",\n  \"catalog\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ff59e0ff-c623-453a-bb0f-22b8a6b75da0",
+              "name": "Array of imagery frames.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "imagery",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"LineString\",\n    \"coordinates\": \"\",\n    \"radius\": 3647.2144066968826,\n    \"buffer\": 9402.18121088565\n  },\n  \"week\": \"<string>\",\n  \"headings\": \"<boolean>\",\n  \"catalog\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"url\": \"http://DGOGhdxDnT.fomz2zVSmPVTbSlZZ6cC.hWOj1oZvkPfAnNeQ2lvHGDjqZnD2R\",\n    \"timestamp\": \"2004-10-21T21:20:36.213Z\",\n    \"position\": {\n      \"lon\": 9148.291310156279,\n      \"lat\": 577.1828830935399,\n      \"alt\": 7927.589272737502,\n      \"azimuth\": 8595.300434299288\n    },\n    \"idImu\": {\n      \"key_0\": true,\n      \"key_1\": 691\n    },\n    \"deviceType\": \"bee\",\n    \"width\": 8586,\n    \"height\": 1020\n  },\n  {\n    \"url\": \"https://phMIqdlkwAuGgUlmpslaAnoyBUQIA.jrLFalNsXGzSQk5JLuE35jJStp+eWtVAT4wSzEHGt0-\",\n    \"timestamp\": \"1957-05-20T19:08:02.057Z\",\n    \"position\": {\n      \"lon\": 1266.1508512843188,\n      \"lat\": 9906.047302443862,\n      \"alt\": 3110.5600432813376,\n      \"azimuth\": 8539.291118409657\n    },\n    \"idImu\": {\n      \"key_0\": \"string\"\n    },\n    \"deviceType\": \"hdc\",\n    \"width\": 5625,\n    \"height\": 1790\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "699e8643-5a93-4a8f-bdc2-a591f5b48698",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "imagery",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"LineString\",\n    \"coordinates\": \"\",\n    \"radius\": 3647.2144066968826,\n    \"buffer\": 9402.18121088565\n  },\n  \"week\": \"<string>\",\n  \"headings\": \"<boolean>\",\n  \"catalog\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 6188\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e571f34-9f6e-4ade-a13f-ef60c7e02484",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "imagery",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"LineString\",\n    \"coordinates\": \"\",\n    \"radius\": 3647.2144066968826,\n    \"buffer\": 9402.18121088565\n  },\n  \"week\": \"<string>\",\n  \"headings\": \"<boolean>\",\n  \"catalog\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 6188\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06721b85-d885-43e6-8a54-da374fe3df2c",
+              "name": "Forbidden / access denied.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "imagery",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"LineString\",\n    \"coordinates\": \"\",\n    \"radius\": 3647.2144066968826,\n    \"buffer\": 9402.18121088565\n  },\n  \"week\": \"<string>\",\n  \"headings\": \"<boolean>\",\n  \"catalog\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 6188\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23c06930-4cf2-4235-b351-54154061fa30",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "imagery",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"LineString\",\n    \"coordinates\": \"\",\n    \"radius\": 3647.2144066968826,\n    \"buffer\": 9402.18121088565\n  },\n  \"week\": \"<string>\",\n  \"headings\": \"<boolean>\",\n  \"catalog\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 6188\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8834e402-7881-47b8-abd9-cd28e2fe362c",
+          "name": "Query the most recent imagery by polygon",
+          "request": {
+            "name": "Query the most recent imagery by polygon",
+            "description": {
+              "content": "Query the most recent street-level imagery within a polygon, optionally bounded by a minimum week cutoff.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "latest",
+                "poly"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"geometry\": {\n    \"type\": \"<string>\",\n    \"coordinates\": \"\",\n    \"radius\": \"<number>\",\n    \"buffer\": \"<number>\"\n  },\n  \"min_week\": \"<string>\",\n  \"headings\": \"<boolean>\",\n  \"catalog\": \"<boolean>\",\n  \"crossjoin\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b4cfdd07-e6e8-4669-830f-0dd5dbc24a3f",
+              "name": "Array of imagery frames.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"Polygon\",\n    \"coordinates\": \"\",\n    \"radius\": 8867.668375462157,\n    \"buffer\": 8572.234802449726\n  },\n  \"min_week\": \"<string>\",\n  \"headings\": \"<boolean>\",\n  \"catalog\": \"<boolean>\",\n  \"crossjoin\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"url\": \"http://DGOGhdxDnT.fomz2zVSmPVTbSlZZ6cC.hWOj1oZvkPfAnNeQ2lvHGDjqZnD2R\",\n    \"timestamp\": \"2004-10-21T21:20:36.213Z\",\n    \"position\": {\n      \"lon\": 9148.291310156279,\n      \"lat\": 577.1828830935399,\n      \"alt\": 7927.589272737502,\n      \"azimuth\": 8595.300434299288\n    },\n    \"idImu\": {\n      \"key_0\": true,\n      \"key_1\": 691\n    },\n    \"deviceType\": \"bee\",\n    \"width\": 8586,\n    \"height\": 1020\n  },\n  {\n    \"url\": \"https://phMIqdlkwAuGgUlmpslaAnoyBUQIA.jrLFalNsXGzSQk5JLuE35jJStp+eWtVAT4wSzEHGt0-\",\n    \"timestamp\": \"1957-05-20T19:08:02.057Z\",\n    \"position\": {\n      \"lon\": 1266.1508512843188,\n      \"lat\": 9906.047302443862,\n      \"alt\": 3110.5600432813376,\n      \"azimuth\": 8539.291118409657\n    },\n    \"idImu\": {\n      \"key_0\": \"string\"\n    },\n    \"deviceType\": \"hdc\",\n    \"width\": 5625,\n    \"height\": 1790\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88d1a38a-4512-4f67-ba5d-57ed82b9c08f",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"Polygon\",\n    \"coordinates\": \"\",\n    \"radius\": 8867.668375462157,\n    \"buffer\": 8572.234802449726\n  },\n  \"min_week\": \"<string>\",\n  \"headings\": \"<boolean>\",\n  \"catalog\": \"<boolean>\",\n  \"crossjoin\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 6188\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b58c4ebc-2c4c-4de5-a678-439b791d1a62",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"Polygon\",\n    \"coordinates\": \"\",\n    \"radius\": 8867.668375462157,\n    \"buffer\": 8572.234802449726\n  },\n  \"min_week\": \"<string>\",\n  \"headings\": \"<boolean>\",\n  \"catalog\": \"<boolean>\",\n  \"crossjoin\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 6188\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbab04a3-6fd2-4a61-8490-521fcd6fe021",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "latest",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"Polygon\",\n    \"coordinates\": \"\",\n    \"radius\": 8867.668375462157,\n    \"buffer\": 8572.234802449726\n  },\n  \"min_week\": \"<string>\",\n  \"headings\": \"<boolean>\",\n  \"catalog\": \"<boolean>\",\n  \"crossjoin\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 6188\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://beemaps.com/api/developer",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "777a01b5-010e-4f63-96a3-e5e1bf4ad50c",
+    "name": "Bee Maps (Hivemapper) Developer Account Imagery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bee Maps (Hivemapper) Developer API delivers fresh street-level imagery, ML-detected map features, AI event videos, and on-demand mapping (Bursts) from the world's largest decentralized dashcam network. Data is queried by point, polygon, or linestring and billed on a two-tier model (API credits per query plus per-view USD metering for signed imagery URLs). Requests are limited to a maximum query area of 5 sq km and use GeoJSON [longitude, latitude] coordinate order. This specification was generated faithfully from the public Bee Maps API reference; it is not a provider-published OpenAPI document.\n\nContact Support:\n Name: Bee Maps\n Email: hi@hivemapper.com",
+      "type": "text/plain"
+    }
+  }
+}

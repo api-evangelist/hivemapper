@@ -1,0 +1,554 @@
+{
+  "item": [
+    {
+      "id": "0d2ce971-19d9-416c-8710-fdec2f10179e",
+      "name": "Map Features",
+      "description": {
+        "content": "ML-detected road objects and features.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fe91cb97-100d-46f6-b83c-5c813e456821",
+          "name": "Query map features and/or imagery within an area",
+          "request": {
+            "name": "Query map features and/or imagery within an area",
+            "description": {
+              "content": "Unified endpoint to query map features and/or street-level imagery within a geographic area (Point with radius, LineString with buffer, or Polygon). Returns credit accounting alongside results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "map-data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"geometry\": {\n    \"type\": \"<string>\",\n    \"coordinates\": \"\",\n    \"radius\": \"<number>\",\n    \"buffer\": \"<number>\"\n  },\n  \"startDate\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41bf00c7-7963-475f-a499-304c42a125ba",
+              "name": "Map data results with credit accounting.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "map-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"geometry\": {\n    \"type\": \"LineString\",\n    \"coordinates\": \"\",\n    \"radius\": 6193.122713880371,\n    \"buffer\": 4262.788216753299\n  },\n  \"startDate\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalCreditsUsed\": 8718.276102054022,\n  \"totalCreditsRemaining\": 2362.4938576680565,\n  \"mapFeatureResults\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"class\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\"\n      },\n      \"position\": {\n        \"lon\": 4725.396015916073,\n        \"lat\": 2696.084790433754,\n        \"alt\": 9046.536465857771,\n        \"azimuth\": 1747.6995813117046\n      },\n      \"confidence\": 2953.9089832229047,\n      \"observedAt\": [\n        \"1954-12-09T08:26:30.470Z\",\n        \"1961-02-11T12:54:00.460Z\"\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"string\",\n      \"class\": \"string\",\n      \"properties\": {\n        \"key_0\": false,\n        \"key_1\": 7308.031692810154,\n        \"key_2\": 5008.84312416653\n      },\n      \"position\": {\n        \"lon\": 2465.7139251045346,\n        \"lat\": 6938.734614829802,\n        \"alt\": 6522.210289406323,\n        \"azimuth\": 9785.204534114118\n      },\n      \"confidence\": 5292.648359249507,\n      \"observedAt\": [\n        \"1996-04-05T04:42:08.942Z\",\n        \"1994-06-24T13:30:02.192Z\"\n      ]\n    }\n  ],\n  \"imageryResults\": [\n    {\n      \"url\": \"https://ecTxs.zuqYUgdwPkqaqdDxbqma+MXPSB4Owm6xJ-.1W2K53hNvs6M5qmwQsaI4uqJVEn8jhtY\",\n      \"timestamp\": \"2023-12-13T07:20:18.539Z\",\n      \"position\": {\n        \"lon\": 9808.148008099262,\n        \"lat\": 9981.970642538672,\n        \"alt\": 2052.89838796033,\n        \"azimuth\": 7700.235825449121\n      },\n      \"idImu\": {\n        \"key_0\": \"string\"\n      },\n      \"deviceType\": \"bee\",\n      \"width\": 9897,\n      \"height\": 6415\n    },\n    {\n      \"url\": \"http://VDITmPSnhNbaMXhIOocuFJ.vyhowpk0x6hbPCH9TloaJomMZ9xwwo4\",\n      \"timestamp\": \"1973-10-28T21:11:48.553Z\",\n      \"position\": {\n        \"lon\": 7070.282320974977,\n        \"lat\": 8342.580972295702,\n        \"alt\": 1925.9976014873648,\n        \"azimuth\": 2223.3689695342596\n      },\n      \"idImu\": {\n        \"key_0\": 4315,\n        \"key_1\": false\n      },\n      \"deviceType\": \"hdc\",\n      \"width\": 4148,\n      \"height\": 7278\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "695f57d0-2da3-4752-bfec-b9a39c315a37",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "map-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"geometry\": {\n    \"type\": \"LineString\",\n    \"coordinates\": \"\",\n    \"radius\": 6193.122713880371,\n    \"buffer\": 4262.788216753299\n  },\n  \"startDate\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 2924\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e8f82f1-f73b-489d-a175-061ef053608f",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "map-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"geometry\": {\n    \"type\": \"LineString\",\n    \"coordinates\": \"\",\n    \"radius\": 6193.122713880371,\n    \"buffer\": 4262.788216753299\n  },\n  \"startDate\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 2924\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b98d050a-04ff-42d8-9b6e-fdfcedb6b6ab",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "map-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"geometry\": {\n    \"type\": \"LineString\",\n    \"coordinates\": \"\",\n    \"radius\": 6193.122713880371,\n    \"buffer\": 4262.788216753299\n  },\n  \"startDate\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 2924\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a34cfe1-239e-42d4-a534-f4fd9ea94a1d",
+          "name": "Query detected road features within a polygon",
+          "request": {
+            "name": "Query detected road features within a polygon",
+            "description": {
+              "content": "Query ML-detected road features (speed limit signs, stop signs, yield signs, turn restrictions, traffic lights, fire hydrants, lane lines, parking restrictions, highway signs) within a polygon boundary.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mapFeatures",
+                "poly"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"geometry\": {\n    \"type\": \"<string>\",\n    \"coordinates\": \"\",\n    \"radius\": \"<number>\",\n    \"buffer\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8a16e75a-1a92-4f75-8f06-e4fffdfe2b27",
+              "name": "Array of detected map features.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapFeatures",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"Polygon\",\n    \"coordinates\": \"\",\n    \"radius\": 791.5137262117355,\n    \"buffer\": 5399.934244755521\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"status\": \"string\",\n    \"class\": \"string\",\n    \"properties\": {\n      \"key_0\": true\n    },\n    \"position\": {\n      \"lon\": 451.2383052997393,\n      \"lat\": 8399.75854883745,\n      \"alt\": 8512.792465997609,\n      \"azimuth\": 5207.886942036721\n    },\n    \"confidence\": 5632.693508696,\n    \"observedAt\": [\n      \"2022-01-05T03:20:20.114Z\",\n      \"1947-12-08T15:49:24.213Z\"\n    ]\n  },\n  {\n    \"id\": \"string\",\n    \"status\": \"string\",\n    \"class\": \"string\",\n    \"properties\": {\n      \"key_0\": 9192.201339491117,\n      \"key_1\": 4669.968624300668\n    },\n    \"position\": {\n      \"lon\": 8445.333504846081,\n      \"lat\": 7973.352008422502,\n      \"alt\": 841.4471553633007,\n      \"azimuth\": 1544.745642429909\n    },\n    \"confidence\": 7535.021673225247,\n    \"observedAt\": [\n      \"1972-07-08T23:25:28.634Z\",\n      \"1971-07-10T12:58:43.368Z\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2dfb176-dd00-4f4b-a819-e4ed6900892f",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapFeatures",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"Polygon\",\n    \"coordinates\": \"\",\n    \"radius\": 791.5137262117355,\n    \"buffer\": 5399.934244755521\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 2924\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45a79d21-010a-4114-b318-cc1c4f8c1044",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapFeatures",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"Polygon\",\n    \"coordinates\": \"\",\n    \"radius\": 791.5137262117355,\n    \"buffer\": 5399.934244755521\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 2924\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44af485f-d048-403a-8567-0dec2c59b7a5",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mapFeatures",
+                    "poly"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"geometry\": {\n    \"type\": \"Polygon\",\n    \"coordinates\": \"\",\n    \"radius\": 791.5137262117355,\n    \"buffer\": 5399.934244755521\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 2924\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://beemaps.com/api/developer",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "72c5232c-4ac0-4867-8367-4fb3574953c5",
+    "name": "Bee Maps (Hivemapper) Developer Account Map Features API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bee Maps (Hivemapper) Developer API delivers fresh street-level imagery, ML-detected map features, AI event videos, and on-demand mapping (Bursts) from the world's largest decentralized dashcam network. Data is queried by point, polygon, or linestring and billed on a two-tier model (API credits per query plus per-view USD metering for signed imagery URLs). Requests are limited to a maximum query area of 5 sq km and use GeoJSON [longitude, latitude] coordinate order. This specification was generated faithfully from the public Bee Maps API reference; it is not a provider-published OpenAPI document.\n\nContact Support:\n Name: Bee Maps\n Email: hi@hivemapper.com",
+      "type": "text/plain"
+    }
+  }
+}

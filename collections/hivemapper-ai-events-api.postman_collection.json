@@ -1,0 +1,603 @@
+{
+  "item": [
+    {
+      "id": "6d965711-ec13-4266-afa5-c70317491d06",
+      "name": "AI Events",
+      "description": {
+        "content": "AI-detected driving event videos with synchronized sensor data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91f351cb-6797-4b7a-8834-e095507b5e00",
+          "name": "Search AI-detected driving events",
+          "request": {
+            "name": "Search AI-detected driving events",
+            "description": {
+              "content": "Search AI-detected driving events (harsh braking, aggressive acceleration, swerving, high speed, high g-force, stop sign violation, traffic light violation, tailgating) within a polygon and date window of up to 31 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "aievents",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startDate\": \"<string>\",\n  \"endDate\": \"<string>\",\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"polygon\": [\n    [\n      \"<number>\",\n      \"<number>\"\n    ],\n    [\n      \"<number>\",\n      \"<number>\"\n    ]\n  ],\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7bd51d22-870c-41f1-b4d0-1aef3176399f",
+              "name": "Paginated array of AI events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aievents",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<string>\",\n  \"endDate\": \"<string>\",\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"polygon\": [\n    [\n      \"<number>\",\n      \"<number>\"\n    ],\n    [\n      \"<number>\",\n      \"<number>\"\n    ]\n  ],\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 1268,\n  \"limit\": 5877,\n  \"offset\": 8823,\n  \"events\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"timestamp\": \"1948-08-06T05:20:31.747Z\",\n      \"location\": {\n        \"lon\": 8981.383346411993,\n        \"lat\": 7287.016489259251,\n        \"alt\": 684.4580905824427,\n        \"azimuth\": 2547.8454556450347\n      },\n      \"metadata\": {\n        \"key_0\": false,\n        \"key_1\": 4332.4714201955585\n      },\n      \"videoUrl\": \"https://K.vndgOU0vw+R8f\",\n      \"gnssData\": [\n        {\n          \"key_0\": 5049\n        },\n        {\n          \"key_0\": true,\n          \"key_1\": \"string\",\n          \"key_2\": 6937,\n          \"key_3\": \"string\"\n        }\n      ],\n      \"imuData\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": 729\n        },\n        {\n          \"key_0\": true\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"timestamp\": \"1980-07-06T22:29:14.603Z\",\n      \"location\": {\n        \"lon\": 7186.834415333004,\n        \"lat\": 8028.649916436638,\n        \"alt\": 2333.8790624127214,\n        \"azimuth\": 9242.82740852962\n      },\n      \"metadata\": {\n        \"key_0\": 4061.5886746116016,\n        \"key_1\": 1735.2034744389944,\n        \"key_2\": \"string\",\n        \"key_3\": 5599.615652146771\n      },\n      \"videoUrl\": \"http://WkLhCsmOAFOuFcsEdIvxthUkBhZM.eqvUjOYkAlXwUBnhVomGkFs5wiyVWFdtBDQu.,5H.t7\",\n      \"gnssData\": [\n        {\n          \"key_0\": true,\n          \"key_1\": true\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"imuData\": [\n        {\n          \"key_0\": 5384.433320622701,\n          \"key_1\": false\n        },\n        {\n          \"key_0\": false,\n          \"key_1\": \"string\",\n          \"key_2\": 3648.735506870063,\n          \"key_3\": false\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "831276a9-2a58-4658-bc44-e0d41a04d405",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aievents",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<string>\",\n  \"endDate\": \"<string>\",\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"polygon\": [\n    [\n      \"<number>\",\n      \"<number>\"\n    ],\n    [\n      \"<number>\",\n      \"<number>\"\n    ]\n  ],\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 8057\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74938560-2552-4df2-aee5-d2efb848f046",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aievents",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<string>\",\n  \"endDate\": \"<string>\",\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"polygon\": [\n    [\n      \"<number>\",\n      \"<number>\"\n    ],\n    [\n      \"<number>\",\n      \"<number>\"\n    ]\n  ],\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 8057\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f816241d-90d0-4cf4-8514-fa4e88874890",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aievents",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<string>\",\n  \"endDate\": \"<string>\",\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"polygon\": [\n    [\n      \"<number>\",\n      \"<number>\"\n    ],\n    [\n      \"<number>\",\n      \"<number>\"\n    ]\n  ],\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 8057\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "afb16bcc-d1e5-436a-ba55-9695f9f79c52",
+          "name": "Retrieve a single AI event",
+          "request": {
+            "name": "Retrieve a single AI event",
+            "description": {
+              "content": "Retrieve a specific AI event with full details and optional synchronized GNSS and IMU sensor data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "aievents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "includeGnssData",
+                  "value": "<boolean>",
+                  "description": "Include GPS array (lat, lon, alt, timestamp)."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeImuData",
+                  "value": "<boolean>",
+                  "description": "Include IMU readings (accelerometer/gyroscope)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Event identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eab67e08-71cd-4aee-8449-7fba578cf53b",
+              "name": "A single AI event.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aievents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeGnssData",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeImuData",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"string\",\n  \"timestamp\": \"1967-03-22T06:31:14.449Z\",\n  \"location\": {\n    \"lon\": 6582.2667230857705,\n    \"lat\": 7851.653560009214,\n    \"alt\": 6190.603393161145,\n    \"azimuth\": 1315.675316071131\n  },\n  \"metadata\": {\n    \"key_0\": 3602.8491562926147\n  },\n  \"videoUrl\": \"https://D.dfgoqjabhJF,DE8rH4eBkZ7fzl+\",\n  \"gnssData\": [\n    {\n      \"key_0\": 239.8042519996846\n    },\n    {\n      \"key_0\": 7752.124330220543,\n      \"key_1\": 9055.522601624492\n    }\n  ],\n  \"imuData\": [\n    {\n      \"key_0\": 6816.341787019011\n    },\n    {\n      \"key_0\": 2018,\n      \"key_1\": 6659\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b56d7d7e-3308-4ca3-ab0b-39aeae90880d",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aievents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeGnssData",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeImuData",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 8057\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "688002a3-9c95-4f93-b94f-4f3c426ec41c",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aievents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeGnssData",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeImuData",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 8057\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41c191d3-4619-489d-9285-81a5a8d7d10a",
+              "name": "Server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aievents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeGnssData",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "includeImuData",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Event identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"statusCode\": 8057\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://beemaps.com/api/developer",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "43790c4d-1cc8-4b43-a352-e2e742514d5e",
+    "name": "Bee Maps (Hivemapper) Developer Account AI Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bee Maps (Hivemapper) Developer API delivers fresh street-level imagery, ML-detected map features, AI event videos, and on-demand mapping (Bursts) from the world's largest decentralized dashcam network. Data is queried by point, polygon, or linestring and billed on a two-tier model (API credits per query plus per-view USD metering for signed imagery URLs). Requests are limited to a maximum query area of 5 sq km and use GeoJSON [longitude, latitude] coordinate order. This specification was generated faithfully from the public Bee Maps API reference; it is not a provider-published OpenAPI document.\n\nContact Support:\n Name: Bee Maps\n Email: hi@hivemapper.com",
+      "type": "text/plain"
+    }
+  }
+}
