@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Bee Maps (Hivemapper) Developer Account Imagery API
   version: '1.0'
@@ -85,20 +85,14 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   responses:
-    Forbidden:
-      description: Forbidden / access denied.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication failed.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    ServerError:
-      description: Server error.
+    Forbidden:
+      description: Forbidden / access denied.
       content:
         application/json:
           schema:
@@ -109,54 +103,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Position:
+    Error:
       type: object
       properties:
-        lon:
-          type: number
-        lat:
-          type: number
-        alt:
-          type: number
-        azimuth:
-          type: number
-    GeoJSONGeometry:
-      type: object
-      description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
-      properties:
-        type:
+        error:
           type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-        coordinates: {}
-        radius:
-          type: number
-          description: Radius in meters (for Point queries).
-        buffer:
-          type: number
-          description: Buffer in meters (for LineString queries).
-      required:
-      - type
-      - coordinates
-    ImageryQuery:
-      type: object
-      properties:
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-        week:
-          type: string
-          description: Target week in YYYY-mm-dd format.
-        headings:
-          type: boolean
-          description: Include heading data.
-        catalog:
-          type: boolean
-          description: Return metadata only, without image URLs.
-      required:
-      - geometry
+          description: Human-readable error message.
+        statusCode:
+          type: integer
     Frame:
       type: object
       description: A street-level dashcam frame.
@@ -184,6 +145,53 @@ components:
           type: integer
         height:
           type: integer
+    ImageryQuery:
+      type: object
+      properties:
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        week:
+          type: string
+          description: Target week in YYYY-mm-dd format.
+        headings:
+          type: boolean
+          description: Include heading data.
+        catalog:
+          type: boolean
+          description: Return metadata only, without image URLs.
+      required:
+      - geometry
+    GeoJSONGeometry:
+      type: object
+      description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+        coordinates: {}
+        radius:
+          type: number
+          description: Radius in meters (for Point queries).
+        buffer:
+          type: number
+          description: Buffer in meters (for LineString queries).
+      required:
+      - type
+      - coordinates
+    Position:
+      type: object
+      properties:
+        lon:
+          type: number
+        lat:
+          type: number
+        alt:
+          type: number
+        azimuth:
+          type: number
     LatestImageryQuery:
       type: object
       properties:
@@ -201,14 +209,6 @@ components:
           description: Return the full polygon per time period.
       required:
       - geometry
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
   securitySchemes:
     basicAuth:
       type: http

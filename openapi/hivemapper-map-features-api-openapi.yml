@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Bee Maps (Hivemapper) Developer Account Map Features API
   version: '1.0'
@@ -81,37 +81,54 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    Position:
+    MapDataResult:
       type: object
       properties:
-        lon:
+        totalCreditsUsed:
           type: number
-        lat:
+        totalCreditsRemaining:
           type: number
-        alt:
-          type: number
-        azimuth:
-          type: number
-    GeoJSONGeometry:
+        mapFeatureResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/MapFeature'
+        imageryResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/Frame'
+    MapFeature:
       type: object
-      description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
+      description: An ML-detected road feature.
       properties:
-        type:
+        id:
           type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-        coordinates: {}
-        radius:
+        status:
+          type: string
+        class:
+          type: string
+          description: Feature class (e.g. speed-limit-sign, stop-sign, fire-hydrant).
+        properties:
+          type: object
+          additionalProperties: true
+          description: Feature-specific properties (speedLimit, unit, regulatory, ...).
+        position:
+          $ref: '#/components/schemas/Position'
+        confidence:
           type: number
-          description: Radius in meters (for Point queries).
-        buffer:
-          type: number
-          description: Buffer in meters (for LineString queries).
-      required:
-      - type
-      - coordinates
+          description: Detection confidence score.
+        observedAt:
+          type: array
+          items:
+            type: string
+            format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        statusCode:
+          type: integer
     Frame:
       type: object
       description: A street-level dashcam frame.
@@ -139,31 +156,26 @@ components:
           type: integer
         height:
           type: integer
-    MapFeature:
+    GeoJSONGeometry:
       type: object
-      description: An ML-detected road feature.
+      description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
       properties:
-        id:
+        type:
           type: string
-        status:
-          type: string
-        class:
-          type: string
-          description: Feature class (e.g. speed-limit-sign, stop-sign, fire-hydrant).
-        properties:
-          type: object
-          additionalProperties: true
-          description: Feature-specific properties (speedLimit, unit, regulatory, ...).
-        position:
-          $ref: '#/components/schemas/Position'
-        confidence:
+          enum:
+          - Point
+          - LineString
+          - Polygon
+        coordinates: {}
+        radius:
           type: number
-          description: Detection confidence score.
-        observedAt:
-          type: array
-          items:
-            type: string
-            format: date-time
+          description: Radius in meters (for Point queries).
+        buffer:
+          type: number
+          description: Buffer in meters (for LineString queries).
+      required:
+      - type
+      - coordinates
     MapDataQuery:
       type: object
       properties:
@@ -190,29 +202,17 @@ components:
           $ref: '#/components/schemas/GeoJSONGeometry'
       required:
       - geometry
-    MapDataResult:
+    Position:
       type: object
       properties:
-        totalCreditsUsed:
+        lon:
           type: number
-        totalCreditsRemaining:
+        lat:
           type: number
-        mapFeatureResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/MapFeature'
-        imageryResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/Frame'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
+        alt:
+          type: number
+        azimuth:
+          type: number
   responses:
     Unauthorized:
       description: Authentication failed.

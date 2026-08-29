@@ -17,6 +17,13 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "hivemapper-account-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "hivemapper-ai-events-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "hivemapper-bursts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "hivemapper-imagery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "hivemapper-map-features-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }
