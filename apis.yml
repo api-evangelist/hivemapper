@@ -12,6 +12,18 @@ description: >-
   Burst on-demand mapping, plus Edge AI for deploying custom ML workloads to
   cameras. Enterprise customers include HERE Technologies, Lyft, Mapbox, and
   Volkswagen. Billing is consumption-based (API credits plus per-view metering).
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
