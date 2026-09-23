@@ -1,15 +1,11 @@
 {
   "provider": "hivemapper",
   "sources": [
-    "hivemapper-account-api-openapi.yml",
-    "hivemapper-ai-events-api-openapi.yml",
-    "hivemapper-bursts-api-openapi.yml",
-    "hivemapper-imagery-api-openapi.yml",
-    "hivemapper-map-features-api-openapi.yml"
+    "_ae-authored/hivemapper-beemaps-openapi.yml"
   ],
   "outputs": [
-    "hivemapper-account-api-openapi.yml",
     "hivemapper-ai-events-api-openapi.yml",
+    "hivemapper-account-api-openapi.yml",
     "hivemapper-bursts-api-openapi.yml",
     "hivemapper-imagery-api-openapi.yml",
     "hivemapper-map-features-api-openapi.yml"
@@ -18,12 +14,15 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "hivemapper-account-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "hivemapper-ai-events-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "hivemapper-bursts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "hivemapper-imagery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "hivemapper-map-features-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "hivemapper-beemaps-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "hivemapper-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hivemapper-ai-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hivemapper-bursts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hivemapper-imagery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hivemapper-map-features-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

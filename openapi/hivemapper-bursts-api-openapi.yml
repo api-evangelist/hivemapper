@@ -1,11 +1,11 @@
 openapi: 3.2.0
 info:
-  title: Bee Maps (Hivemapper) Developer Account Bursts API
+  title: Bee Maps (Hivemapper) Developer Bursts API
   version: '1.0'
   x-generated: '2026-07-19'
   x-method: generated
   x-source: https://docs.beemaps.com/api-reference
-  description: The Bee Maps (Hivemapper) Developer API delivers fresh street-level imagery, ML-detected map features, AI event videos, and on-demand mapping (Bursts) from the world's largest decentralized dashcam network. Data is queried by point, polygon, or linestring and billed on a two-tier model (API credits per query plus per-view USD metering for signed imagery URLs). Requests are limited to a maximum query area of 5 sq km and use GeoJSON [longitude, latitude] coordinate order. This specification was generated faithfully from the public Bee Maps API reference; it is not a provider-published OpenAPI document.
+  description: The Bee Maps (Hivemapper) Developer API delivers fresh street-level imagery, ML-detected map features, AI event videos, and on-demand mapping (Bursts) from the world's largest decentralized dashcam network.
   contact:
     name: Bee Maps
     email: hi@hivemapper.com
@@ -85,36 +85,21 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    HoneyBurst:
+    BurstCreate:
       type: object
       properties:
-        _id:
-          type: string
         geojson:
           $ref: '#/components/schemas/GeoJSONGeometry'
-        amount:
-          type: number
-        status:
+        trackedLocation:
           type: string
-        validFrom:
+        expiration:
           type: string
-          format: date-time
-        validUntil:
+        deviceType:
           type: string
-          format: date-time
-        isHit:
-          type: boolean
-        latestHitAt:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
+          enum:
+          - bee
+      required:
+      - geojson
     BurstCreateResult:
       type: object
       properties:
@@ -144,6 +129,14 @@ components:
       required:
       - type
       - coordinates
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        statusCode:
+          type: integer
     BurstListResult:
       type: object
       properties:
@@ -157,21 +150,28 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HoneyBurst'
-    BurstCreate:
+    HoneyBurst:
       type: object
       properties:
+        _id:
+          type: string
         geojson:
           $ref: '#/components/schemas/GeoJSONGeometry'
-        trackedLocation:
+        amount:
+          type: number
+        status:
           type: string
-        expiration:
+        validFrom:
           type: string
-        deviceType:
+          format: date-time
+        validUntil:
           type: string
-          enum:
-          - bee
-      required:
-      - geojson
+          format: date-time
+        isHit:
+          type: boolean
+        latestHitAt:
+          type: string
+          format: date-time
   responses:
     Unauthorized:
       description: Authentication failed.
