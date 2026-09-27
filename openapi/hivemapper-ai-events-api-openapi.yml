@@ -92,6 +92,30 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
+    Position:
+      type: object
+      properties:
+        lon:
+          type: number
+        lat:
+          type: number
+        alt:
+          type: number
+        azimuth:
+          type: number
+    AIEventSearchResult:
+      type: object
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIEvent'
     Error:
       type: object
       properties:
@@ -138,17 +162,6 @@ components:
       required:
       - startDate
       - endDate
-    Position:
-      type: object
-      properties:
-        lon:
-          type: number
-        lat:
-          type: number
-        alt:
-          type: number
-        azimuth:
-          type: number
     AIEvent:
       type: object
       description: An AI-detected driving event.
@@ -178,22 +191,9 @@ components:
           items:
             type: object
             additionalProperties: true
-    AIEventSearchResult:
-      type: object
-      properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/AIEvent'
   responses:
-    Unauthorized:
-      description: Authentication failed.
+    BadRequest:
+      description: Bad request.
       content:
         application/json:
           schema:
@@ -204,8 +204,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request.
+    Unauthorized:
+      description: Authentication failed.
       content:
         application/json:
           schema:

@@ -59,7 +59,7 @@ tags:
 - Location
 - Street View
 - Mobility
-- Machine-Learning
+- Machine Learning
 - Web3
 tags_raw:
 - Company
@@ -72,6 +72,7 @@ tags_raw:
 - Mobility
 - Machine Learning
 - Web3
+- Machine-Learning
 apis:
 - aid: hivemapper:hivemapper-account-api
   name: Hivemapper Account API

@@ -78,14 +78,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
     HistoryEntry:
       type: object
       properties:
@@ -105,6 +97,14 @@ components:
             type: string
         credits:
           type: number
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        statusCode:
+          type: integer
   responses:
     ServerError:
       description: Server error.

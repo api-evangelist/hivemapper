@@ -85,6 +85,23 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
+    BurstCreateResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        bursts:
+          type: array
+          items:
+            $ref: '#/components/schemas/HoneyBurst'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        statusCode:
+          type: integer
     BurstCreate:
       type: object
       properties:
@@ -100,43 +117,6 @@ components:
           - bee
       required:
       - geojson
-    BurstCreateResult:
-      type: object
-      properties:
-        success:
-          type: boolean
-        bursts:
-          type: array
-          items:
-            $ref: '#/components/schemas/HoneyBurst'
-    GeoJSONGeometry:
-      type: object
-      description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-        coordinates: {}
-        radius:
-          type: number
-          description: Radius in meters (for Point queries).
-        buffer:
-          type: number
-          description: Buffer in meters (for LineString queries).
-      required:
-      - type
-      - coordinates
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
     BurstListResult:
       type: object
       properties:
@@ -172,15 +152,35 @@ components:
         latestHitAt:
           type: string
           format: date-time
+    GeoJSONGeometry:
+      type: object
+      description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+        coordinates: {}
+        radius:
+          type: number
+          description: Radius in meters (for Point queries).
+        buffer:
+          type: number
+          description: Buffer in meters (for LineString queries).
+      required:
+      - type
+      - coordinates
   responses:
-    Unauthorized:
-      description: Authentication failed.
+    BadRequest:
+      description: Bad request.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request.
+    Unauthorized:
+      description: Authentication failed.
       content:
         application/json:
           schema:

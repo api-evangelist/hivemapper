@@ -84,87 +84,7 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    ServerError:
-      description: Server error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden / access denied.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    GeoJSONGeometry:
-      type: object
-      description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
-      properties:
-        type:
-          type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-        coordinates: {}
-        radius:
-          type: number
-          description: Radius in meters (for Point queries).
-        buffer:
-          type: number
-          description: Buffer in meters (for LineString queries).
-      required:
-      - type
-      - coordinates
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
-    Frame:
-      type: object
-      description: A street-level dashcam frame.
-      properties:
-        url:
-          type: string
-          format: uri
-          description: Signed image URL.
-        timestamp:
-          type: string
-          format: date-time
-        position:
-          $ref: '#/components/schemas/Position'
-        idImu:
-          type: object
-          additionalProperties: true
-          description: IMU data.
-        deviceType:
-          type: string
-          enum:
-          - hdc
-          - hdcs
-          - bee
-        width:
-          type: integer
-        height:
-          type: integer
     Position:
       type: object
       properties:
@@ -193,6 +113,14 @@ components:
           description: Return the full polygon per time period.
       required:
       - geometry
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        statusCode:
+          type: integer
     ImageryQuery:
       type: object
       properties:
@@ -209,6 +137,78 @@ components:
           description: Return metadata only, without image URLs.
       required:
       - geometry
+    Frame:
+      type: object
+      description: A street-level dashcam frame.
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Signed image URL.
+        timestamp:
+          type: string
+          format: date-time
+        position:
+          $ref: '#/components/schemas/Position'
+        idImu:
+          type: object
+          additionalProperties: true
+          description: IMU data.
+        deviceType:
+          type: string
+          enum:
+          - hdc
+          - hdcs
+          - bee
+        width:
+          type: integer
+        height:
+          type: integer
+    GeoJSONGeometry:
+      type: object
+      description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+          - LineString
+          - Polygon
+        coordinates: {}
+        radius:
+          type: number
+          description: Radius in meters (for Point queries).
+        buffer:
+          type: number
+          description: Buffer in meters (for LineString queries).
+      required:
+      - type
+      - coordinates
+  responses:
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden / access denied.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

@@ -81,6 +81,103 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
+    Position:
+      type: object
+      properties:
+        lon:
+          type: number
+        lat:
+          type: number
+        alt:
+          type: number
+        azimuth:
+          type: number
+    MapFeature:
+      type: object
+      description: An ML-detected road feature.
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        class:
+          type: string
+          description: Feature class (e.g. speed-limit-sign, stop-sign, fire-hydrant).
+        properties:
+          type: object
+          additionalProperties: true
+          description: Feature-specific properties (speedLimit, unit, regulatory, ...).
+        position:
+          $ref: '#/components/schemas/Position'
+        confidence:
+          type: number
+          description: Detection confidence score.
+        observedAt:
+          type: array
+          items:
+            type: string
+            format: date-time
+    MapDataQuery:
+      type: object
+      properties:
+        type:
+          type: array
+          items:
+            type: string
+            enum:
+            - mapFeatures
+            - imagery
+          description: Which result families to return.
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        startDate:
+          type: string
+          description: YYYY-MM-DD; defaults to one week ago.
+      required:
+      - type
+      - geometry
+    PolygonQuery:
+      type: object
+      properties:
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+      required:
+      - geometry
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        statusCode:
+          type: integer
+    Frame:
+      type: object
+      description: A street-level dashcam frame.
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Signed image URL.
+        timestamp:
+          type: string
+          format: date-time
+        position:
+          $ref: '#/components/schemas/Position'
+        idImu:
+          type: object
+          additionalProperties: true
+          description: IMU data.
+        deviceType:
+          type: string
+          enum:
+          - hdc
+          - hdcs
+          - bee
+        width:
+          type: integer
+        height:
+          type: integer
     MapDataResult:
       type: object
       properties:
@@ -116,103 +213,6 @@ components:
       required:
       - type
       - coordinates
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
-    MapFeature:
-      type: object
-      description: An ML-detected road feature.
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-        class:
-          type: string
-          description: Feature class (e.g. speed-limit-sign, stop-sign, fire-hydrant).
-        properties:
-          type: object
-          additionalProperties: true
-          description: Feature-specific properties (speedLimit, unit, regulatory, ...).
-        position:
-          $ref: '#/components/schemas/Position'
-        confidence:
-          type: number
-          description: Detection confidence score.
-        observedAt:
-          type: array
-          items:
-            type: string
-            format: date-time
-    Frame:
-      type: object
-      description: A street-level dashcam frame.
-      properties:
-        url:
-          type: string
-          format: uri
-          description: Signed image URL.
-        timestamp:
-          type: string
-          format: date-time
-        position:
-          $ref: '#/components/schemas/Position'
-        idImu:
-          type: object
-          additionalProperties: true
-          description: IMU data.
-        deviceType:
-          type: string
-          enum:
-          - hdc
-          - hdcs
-          - bee
-        width:
-          type: integer
-        height:
-          type: integer
-    Position:
-      type: object
-      properties:
-        lon:
-          type: number
-        lat:
-          type: number
-        alt:
-          type: number
-        azimuth:
-          type: number
-    MapDataQuery:
-      type: object
-      properties:
-        type:
-          type: array
-          items:
-            type: string
-            enum:
-            - mapFeatures
-            - imagery
-          description: Which result families to return.
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-        startDate:
-          type: string
-          description: YYYY-MM-DD; defaults to one week ago.
-      required:
-      - type
-      - geometry
-    PolygonQuery:
-      type: object
-      properties:
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-      required:
-      - geometry
   responses:
     Unauthorized:
       description: Authentication failed.
