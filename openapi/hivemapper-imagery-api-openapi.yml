@@ -85,58 +85,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    Position:
-      type: object
-      properties:
-        lon:
-          type: number
-        lat:
-          type: number
-        alt:
-          type: number
-        azimuth:
-          type: number
-    LatestImageryQuery:
-      type: object
-      properties:
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-        min_week:
-          type: string
-          description: Cutoff date (YYYY-mm-dd) for the most recent imagery.
-        headings:
-          type: boolean
-        catalog:
-          type: boolean
-        crossjoin:
-          type: boolean
-          description: Return the full polygon per time period.
-      required:
-      - geometry
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
-    ImageryQuery:
-      type: object
-      properties:
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-        week:
-          type: string
-          description: Target week in YYYY-mm-dd format.
-        headings:
-          type: boolean
-          description: Include heading data.
-        catalog:
-          type: boolean
-          description: Return metadata only, without image URLs.
-      required:
-      - geometry
     Frame:
       type: object
       description: A street-level dashcam frame.
@@ -164,6 +112,33 @@ components:
           type: integer
         height:
           type: integer
+    Position:
+      type: object
+      properties:
+        lon:
+          type: number
+        lat:
+          type: number
+        alt:
+          type: number
+        azimuth:
+          type: number
+    ImageryQuery:
+      type: object
+      properties:
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        week:
+          type: string
+          description: Target week in YYYY-mm-dd format.
+        headings:
+          type: boolean
+          description: Include heading data.
+        catalog:
+          type: boolean
+          description: Return metadata only, without image URLs.
+      required:
+      - geometry
     GeoJSONGeometry:
       type: object
       description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
@@ -184,27 +159,52 @@ components:
       required:
       - type
       - coordinates
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        statusCode:
+          type: integer
+    LatestImageryQuery:
+      type: object
+      properties:
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        min_week:
+          type: string
+          description: Cutoff date (YYYY-mm-dd) for the most recent imagery.
+        headings:
+          type: boolean
+        catalog:
+          type: boolean
+        crossjoin:
+          type: boolean
+          description: Return the full polygon per time period.
+      required:
+      - geometry
   responses:
-    BadRequest:
-      description: Bad request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication failed.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden / access denied.
+    BadRequest:
+      description: Bad request.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     ServerError:
       description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden / access denied.
       content:
         application/json:
           schema:
