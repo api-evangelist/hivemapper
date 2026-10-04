@@ -81,6 +81,17 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
+    Position:
+      type: object
+      properties:
+        lon:
+          type: number
+        lat:
+          type: number
+        alt:
+          type: number
+        azimuth:
+          type: number
     Frame:
       type: object
       description: A street-level dashcam frame.
@@ -108,17 +119,25 @@ components:
           type: integer
         height:
           type: integer
-    Position:
+    MapDataQuery:
       type: object
       properties:
-        lon:
-          type: number
-        lat:
-          type: number
-        alt:
-          type: number
-        azimuth:
-          type: number
+        type:
+          type: array
+          items:
+            type: string
+            enum:
+            - mapFeatures
+            - imagery
+          description: Which result families to return.
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        startDate:
+          type: string
+          description: YYYY-MM-DD; defaults to one week ago.
+      required:
+      - type
+      - geometry
     PolygonQuery:
       type: object
       properties:
@@ -151,6 +170,21 @@ components:
           items:
             type: string
             format: date-time
+    MapDataResult:
+      type: object
+      properties:
+        totalCreditsUsed:
+          type: number
+        totalCreditsRemaining:
+          type: number
+        mapFeatureResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/MapFeature'
+        imageryResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/Frame'
     GeoJSONGeometry:
       type: object
       description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
@@ -171,25 +205,6 @@ components:
       required:
       - type
       - coordinates
-    MapDataQuery:
-      type: object
-      properties:
-        type:
-          type: array
-          items:
-            type: string
-            enum:
-            - mapFeatures
-            - imagery
-          description: Which result families to return.
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-        startDate:
-          type: string
-          description: YYYY-MM-DD; defaults to one week ago.
-      required:
-      - type
-      - geometry
     Error:
       type: object
       properties:
@@ -198,30 +213,15 @@ components:
           description: Human-readable error message.
         statusCode:
           type: integer
-    MapDataResult:
-      type: object
-      properties:
-        totalCreditsUsed:
-          type: number
-        totalCreditsRemaining:
-          type: number
-        mapFeatureResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/MapFeature'
-        imageryResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/Frame'
   responses:
-    Unauthorized:
-      description: Authentication failed.
+    BadRequest:
+      description: Bad request.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request.
+    Unauthorized:
+      description: Authentication failed.
       content:
         application/json:
           schema:

@@ -91,31 +91,6 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ServerError:
-      description: Server error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Position:
       type: object
@@ -128,27 +103,35 @@ components:
           type: number
         azimuth:
           type: number
-    AIEventSearchResult:
+    AIEvent:
       type: object
+      description: An AI-detected driving event.
       properties:
-        total:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
-        events:
+        id:
+          type: string
+        type:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        location:
+          $ref: '#/components/schemas/Position'
+        metadata:
+          type: object
+          additionalProperties: true
+        videoUrl:
+          type: string
+          format: uri
+        gnssData:
           type: array
           items:
-            $ref: '#/components/schemas/AIEvent'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
+            type: object
+            additionalProperties: true
+        imuData:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     AIEventSearch:
       type: object
       properties:
@@ -187,35 +170,52 @@ components:
       required:
       - startDate
       - endDate
-    AIEvent:
+    AIEventSearchResult:
       type: object
-      description: An AI-detected driving event.
       properties:
-        id:
-          type: string
-        type:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        location:
-          $ref: '#/components/schemas/Position'
-        metadata:
-          type: object
-          additionalProperties: true
-        videoUrl:
-          type: string
-          format: uri
-        gnssData:
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        events:
           type: array
           items:
-            type: object
-            additionalProperties: true
-        imuData:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
+            $ref: '#/components/schemas/AIEvent'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        statusCode:
+          type: integer
+  responses:
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http
