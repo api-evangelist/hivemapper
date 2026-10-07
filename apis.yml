@@ -190,6 +190,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Plans
+  url: plans/hivemapper-plans-pricing.yml
 - type: Overlay
   url: overlays/hivemapper-beemaps-overlay.yaml
 - type: DomainSecurity
