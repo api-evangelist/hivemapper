@@ -1,0 +1,118 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://beemaps.com/pricing
+sources:
+- https://beemaps.com/pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+published: true
+note: Consumption-based Data API pricing plus Bee Edge AI device pricing; no numeric rate limits stated.
+plan_count: 6
+currency: USD
+plans:
+- name: Street Level Imagery
+  price_text: $0.005 / image
+  price: 0.005
+  currency: USD
+  period: per-use
+  unit: image
+- name: AI Event Videos
+  price_text: $6 / video
+  price: 6
+  currency: USD
+  period: per-use
+  unit: video
+- name: Road Detections
+  price_text: $3 / 1K detections
+  price: 3
+  currency: USD
+  period: per-use
+  unit: 1K detections
+- name: Burst (on-demand mapping)
+  price_text: $1 / location
+  price: 1
+  currency: USD
+  period: per-use
+  unit: location
+- name: Bee Edge AI — Own Devices
+  price_text: $15 / device / mo
+  price: 15
+  currency: USD
+  period: month
+  unit: device
+  included_quota: includes 1GB
+  overage: $3 / GB
+- name: Bee Edge AI — Network Devices
+  price_text: $0.02 / km
+  price: 0.02
+  currency: USD
+  period: per-use
+  unit: km
+  included_quota: includes 5MB/km
+  overage: $0.05 / 10MB
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - subscription
+  units:
+  - object
+  plans:
+  - name: Street Level Imagery
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    periods:
+    - other
+  - name: AI Event Videos
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Road Detections
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Burst (on-demand mapping)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    periods:
+    - other
+  - name: Bee Edge AI — Own Devices
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    periods:
+    - month
+  - name: Bee Edge AI — Network Devices
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
