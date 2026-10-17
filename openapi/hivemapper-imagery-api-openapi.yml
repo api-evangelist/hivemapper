@@ -85,17 +85,23 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    Position:
+    LatestImageryQuery:
       type: object
       properties:
-        lon:
-          type: number
-        lat:
-          type: number
-        alt:
-          type: number
-        azimuth:
-          type: number
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        min_week:
+          type: string
+          description: Cutoff date (YYYY-mm-dd) for the most recent imagery.
+        headings:
+          type: boolean
+        catalog:
+          type: boolean
+        crossjoin:
+          type: boolean
+          description: Return the full polygon per time period.
+      required:
+      - geometry
     Frame:
       type: object
       description: A street-level dashcam frame.
@@ -123,23 +129,14 @@ components:
           type: integer
         height:
           type: integer
-    LatestImageryQuery:
+    Error:
       type: object
       properties:
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-        min_week:
+        error:
           type: string
-          description: Cutoff date (YYYY-mm-dd) for the most recent imagery.
-        headings:
-          type: boolean
-        catalog:
-          type: boolean
-        crossjoin:
-          type: boolean
-          description: Return the full polygon per time period.
-      required:
-      - geometry
+          description: Human-readable error message.
+        statusCode:
+          type: integer
     GeoJSONGeometry:
       type: object
       description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
@@ -176,35 +173,38 @@ components:
           description: Return metadata only, without image URLs.
       required:
       - geometry
-    Error:
+    Position:
       type: object
       properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
+        lon:
+          type: number
+        lat:
+          type: number
+        alt:
+          type: number
+        azimuth:
+          type: number
   responses:
-    Forbidden:
-      description: Forbidden / access denied.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Bad request.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed.
+    ServerError:
+      description: Server error.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    ServerError:
-      description: Server error.
+    Forbidden:
+      description: Forbidden / access denied.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed.
       content:
         application/json:
           schema:

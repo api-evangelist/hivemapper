@@ -81,17 +81,28 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    Position:
+    MapDataResult:
       type: object
       properties:
-        lon:
+        totalCreditsUsed:
           type: number
-        lat:
+        totalCreditsRemaining:
           type: number
-        alt:
-          type: number
-        azimuth:
-          type: number
+        mapFeatureResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/MapFeature'
+        imageryResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/Frame'
+    PolygonQuery:
+      type: object
+      properties:
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+      required:
+      - geometry
     Frame:
       type: object
       description: A street-level dashcam frame.
@@ -119,32 +130,34 @@ components:
           type: integer
         height:
           type: integer
-    MapDataQuery:
+    Error:
       type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        statusCode:
+          type: integer
+    GeoJSONGeometry:
+      type: object
+      description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
       properties:
         type:
-          type: array
-          items:
-            type: string
-            enum:
-            - mapFeatures
-            - imagery
-          description: Which result families to return.
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-        startDate:
           type: string
-          description: YYYY-MM-DD; defaults to one week ago.
+          enum:
+          - Point
+          - LineString
+          - Polygon
+        coordinates: {}
+        radius:
+          type: number
+          description: Radius in meters (for Point queries).
+        buffer:
+          type: number
+          description: Buffer in meters (for LineString queries).
       required:
       - type
-      - geometry
-    PolygonQuery:
-      type: object
-      properties:
-        geometry:
-          $ref: '#/components/schemas/GeoJSONGeometry'
-      required:
-      - geometry
+      - coordinates
     MapFeature:
       type: object
       description: An ML-detected road feature.
@@ -170,49 +183,36 @@ components:
           items:
             type: string
             format: date-time
-    MapDataResult:
+    MapDataQuery:
       type: object
-      properties:
-        totalCreditsUsed:
-          type: number
-        totalCreditsRemaining:
-          type: number
-        mapFeatureResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/MapFeature'
-        imageryResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/Frame'
-    GeoJSONGeometry:
-      type: object
-      description: A GeoJSON geometry (Point, LineString, or Polygon) with [lon, lat] order.
       properties:
         type:
+          type: array
+          items:
+            type: string
+            enum:
+            - mapFeatures
+            - imagery
+          description: Which result families to return.
+        geometry:
+          $ref: '#/components/schemas/GeoJSONGeometry'
+        startDate:
           type: string
-          enum:
-          - Point
-          - LineString
-          - Polygon
-        coordinates: {}
-        radius:
-          type: number
-          description: Radius in meters (for Point queries).
-        buffer:
-          type: number
-          description: Buffer in meters (for LineString queries).
+          description: YYYY-MM-DD; defaults to one week ago.
       required:
       - type
-      - coordinates
-    Error:
+      - geometry
+    Position:
       type: object
       properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
+        lon:
+          type: number
+        lat:
+          type: number
+        alt:
+          type: number
+        azimuth:
+          type: number
   responses:
     BadRequest:
       description: Bad request.
@@ -220,14 +220,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed.
+    ServerError:
+      description: Server error.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    ServerError:
-      description: Server error.
+    Unauthorized:
+      description: Authentication failed.
       content:
         application/json:
           schema:

@@ -106,14 +106,14 @@ components:
         credits:
           type: number
   responses:
-    Unauthorized:
-      description: Authentication failed.
+    ServerError:
+      description: Server error.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    ServerError:
-      description: Server error.
+    Unauthorized:
+      description: Authentication failed.
       content:
         application/json:
           schema:

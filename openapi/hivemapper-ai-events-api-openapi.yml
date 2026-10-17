@@ -92,46 +92,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    Position:
-      type: object
-      properties:
-        lon:
-          type: number
-        lat:
-          type: number
-        alt:
-          type: number
-        azimuth:
-          type: number
-    AIEvent:
-      type: object
-      description: An AI-detected driving event.
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        location:
-          $ref: '#/components/schemas/Position'
-        metadata:
-          type: object
-          additionalProperties: true
-        videoUrl:
-          type: string
-          format: uri
-        gnssData:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        imuData:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
     AIEventSearch:
       type: object
       properties:
@@ -170,6 +130,14 @@ components:
       required:
       - startDate
       - endDate
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        statusCode:
+          type: integer
     AIEventSearchResult:
       type: object
       properties:
@@ -183,23 +151,49 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AIEvent'
-    Error:
+    AIEvent:
+      type: object
+      description: An AI-detected driving event.
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        location:
+          $ref: '#/components/schemas/Position'
+        metadata:
+          type: object
+          additionalProperties: true
+        videoUrl:
+          type: string
+          format: uri
+        gnssData:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        imuData:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    Position:
       type: object
       properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        statusCode:
-          type: integer
+        lon:
+          type: number
+        lat:
+          type: number
+        alt:
+          type: number
+        azimuth:
+          type: number
   responses:
     BadRequest:
       description: Bad request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed.
       content:
         application/json:
           schema:
@@ -212,6 +206,12 @@ components:
             $ref: '#/components/schemas/Error'
     ServerError:
       description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed.
       content:
         application/json:
           schema:
