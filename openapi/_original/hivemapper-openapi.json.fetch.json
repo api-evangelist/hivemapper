@@ -1,0 +1,12 @@
+{
+ "url": "https://beemaps.com/openapi.json",
+ "final": "https://beemaps.com/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 20637,
+ "sha256": "fcbfc9ebaf370fea26479f1d6ee5c5e6c2ec95217f0255e6893ae4e3fa59afa8",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

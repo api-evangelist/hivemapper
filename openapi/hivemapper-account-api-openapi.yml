@@ -1,30 +1,85 @@
 openapi: 3.2.0
 info:
-  title: Bee Maps (Hivemapper) Developer Account API
+  title: Hivemapper Account API
+  x-refined-note:
+  - x-generated differs across the merged source definitions and was not carried
+  - x-method differs across the merged source definitions and was not carried
+  - x-source differs across the merged source definitions and was not carried
   version: '1.0'
-  x-generated: '2026-07-19'
-  x-method: generated
-  x-source: https://docs.beemaps.com/api-reference
-  description: The Bee Maps (Hivemapper) Developer API delivers fresh street-level imagery, ML-detected map features, AI event videos, and on-demand mapping (Bursts) from the world's largest decentralized dashcam network.
-  contact:
-    name: Bee Maps
-    email: hi@hivemapper.com
-    url: https://docs.beemaps.com
-  license:
-    name: Bee Maps API Terms
-    url: https://hivemapper.com/tos
+  description: 'Operations tagged account across 2 of this provider''s published API definitions: hivemapper-openapi.json, hivemapper-beemaps-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://beemaps.com/api/developer
-  description: Bee Maps Developer API (current)
+  description: Production
 - url: https://hivemapper.com/api/developer
   description: Legacy Hivemapper Developer API host
-security:
-- basicAuth: []
-- apiKeyQuery: []
 tags:
 - name: Account
-  description: Devices, calibration, and query history.
+  description: Account balance and usage
 paths:
+  /balance:
+    get:
+      tags:
+      - Account
+      summary: Check API credit balance
+      responses:
+        '200':
+          description: Current balance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balance:
+                    type: number
+                    example: 4250.5
+                  currency:
+                    type: string
+                    example: USD
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      security:
+      - ApiKeyQuery: []
+      operationId: getBalance
+      x-operation-id-source: derived
+    servers:
+    - url: https://beemaps.com/api/developer
+      description: Production
+  /history:
+    get:
+      tags:
+      - Account
+      summary: Query API usage history
+      responses:
+        '200':
+          description: Usage history
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  history:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                        endpoint:
+                          type: string
+                        requests:
+                          type: integer
+                        credits:
+                          type: number
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      security:
+      - ApiKeyQuery: []
+      operationId: getHistory
+      x-operation-id-source: derived
+    servers:
+    - url: https://beemaps.com/api/developer
+      description: Production
   /devices:
     get:
       operationId: getDevices
@@ -43,40 +98,27 @@ paths:
                 additionalProperties: true
         '500':
           $ref: '#/components/responses/ServerError'
-  /history:
-    get:
-      operationId: getHistory
-      summary: Retrieve API query history
-      description: Retrieve API query history with credit consumption details (queried area, payload geometry, timestamp, weeks queried, and credits consumed).
-      tags:
-      - Account
-      parameters:
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          default: 100
-        description: Maximum results to return.
-      - name: skip
-        in: query
-        schema:
-          type: integer
-          default: 0
-        description: Pagination offset.
-      responses:
-        '200':
-          description: Array of history entries.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/HistoryEntry'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/ServerError'
+    servers:
+    - url: https://beemaps.com/api/developer
+      description: Bee Maps Developer API (current)
+    - url: https://hivemapper.com/api/developer
+      description: Legacy Hivemapper Developer API host
 components:
+  responses:
+    Forbidden:
+      description: Forbidden — missing or invalid API key
+    Unauthorized:
+      description: Authentication failed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -105,20 +147,16 @@ components:
             type: string
         credits:
           type: number
-  responses:
-    ServerError:
-      description: Server error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: 'API key passed as Basic auth header: `Authorization: Basic <API_KEY>`'
+    ApiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: API key passed as query parameter (used for burst endpoints)
     basicAuth:
       type: http
       scheme: basic
@@ -128,3 +166,9 @@ components:
       in: query
       name: apiKey
       description: API key passed as the apiKey query parameter.
+externalDocs:
+  description: Full documentation
+  url: https://docs.beemaps.com
+x-refined-from:
+- hivemapper-openapi.json
+- hivemapper-beemaps-openapi.yml

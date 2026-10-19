@@ -1,98 +1,198 @@
 openapi: 3.2.0
 info:
-  title: Bee Maps (Hivemapper) Developer AI Events API
+  title: Hivemapper AI Events API
+  x-refined-note:
+  - x-generated differs across the merged source definitions and was not carried
+  - x-method differs across the merged source definitions and was not carried
+  - x-source differs across the merged source definitions and was not carried
   version: '1.0'
-  x-generated: '2026-07-19'
-  x-method: generated
-  x-source: https://docs.beemaps.com/api-reference
-  description: The Bee Maps (Hivemapper) Developer API delivers fresh street-level imagery, ML-detected map features, AI event videos, and on-demand mapping (Bursts) from the world's largest decentralized dashcam network.
-  contact:
-    name: Bee Maps
-    email: hi@hivemapper.com
-    url: https://docs.beemaps.com
-  license:
-    name: Bee Maps API Terms
-    url: https://hivemapper.com/tos
+  description: 'Operations tagged ai-events across 2 of this provider''s published API definitions: hivemapper-openapi.json, hivemapper-beemaps-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://beemaps.com/api/developer
-  description: Bee Maps Developer API (current)
+  description: Production
 - url: https://hivemapper.com/api/developer
   description: Legacy Hivemapper Developer API host
-security:
-- basicAuth: []
-- apiKeyQuery: []
 tags:
-- name: AI Events
-  description: AI-detected driving event videos with synchronized sensor data.
+- name: ai-events
+  description: AI-detected driving events with video
 paths:
   /aievents/search:
     post:
-      operationId: searchAIEvents
-      summary: Search AI-detected driving events
-      description: Search AI-detected driving events (harsh braking, aggressive acceleration, swerving, high speed, high g-force, stop sign violation, traffic light violation, tailgating) within a polygon and date window of up to 31 days.
       tags:
-      - AI Events
+      - ai-events
+      summary: Search AI-detected driving events
+      description: Search for AI-detected driving events filtered by date range, event type, and more.
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AIEventSearch'
+            example:
+              startDate: '2026-01-01T00:00:00Z'
+              endDate: '2026-01-31T00:00:00Z'
+              types:
+              - HARSH_BRAKING
+              - SWERVING
+              limit: 50
       responses:
         '200':
-          description: Paginated array of AI events.
+          description: AI events
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AIEventSearchResult'
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AIEvent'
+                  total:
+                    type: integer
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
         '400':
           $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '500':
-          $ref: '#/components/responses/ServerError'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+      security:
+      - ApiKeyQuery: []
+      operationId: postAieventsSearch
+      x-operation-id-source: derived
+    servers:
+    - url: https://beemaps.com/api/developer
+      description: Production
   /aievents/{id}:
     get:
-      operationId: getAIEvent
-      summary: Retrieve a single AI event
-      description: Retrieve a specific AI event with full details and optional synchronized GNSS and IMU sensor data.
       tags:
-      - AI Events
+      - ai-events
+      summary: Get AI event by ID
+      description: Retrieve a single AI event with optional high-frequency sensor data.
       parameters:
       - name: id
         in: path
         required: true
         schema:
           type: string
-        description: Event identifier.
+        description: AI event ID
       - name: includeGnssData
         in: query
-        required: false
         schema:
           type: boolean
-        description: Include GPS array (lat, lon, alt, timestamp).
+        description: Include ~1Hz GPS trace
       - name: includeImuData
         in: query
-        required: false
         schema:
           type: boolean
-        description: Include IMU readings (accelerometer/gyroscope).
+        description: Include ~100Hz 6-axis IMU data
       responses:
         '200':
-          description: A single AI event.
+          description: AI event details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AIEvent'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '500':
-          $ref: '#/components/responses/ServerError'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+      security:
+      - ApiKeyQuery: []
+      operationId: getAieventsById
+      x-operation-id-source: derived
+    servers:
+    - url: https://beemaps.com/api/developer
+      description: Production
 components:
   schemas:
     AIEventSearch:
+      type: object
+      description: Date range must be 31 days or less.
+      properties:
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        types:
+          type: array
+          items:
+            type: string
+            enum:
+            - HARSH_BRAKING
+            - AGGRESSIVE_ACCELERATION
+            - SWERVING
+            - HIGH_SPEED
+            - HIGH_G_FORCE
+            - STOP_SIGN_VIOLATION
+        limit:
+          type: integer
+          default: 50
+          maximum: 500
+        offset:
+          type: integer
+          default: 0
+    AIEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        lat:
+          type: number
+        lng:
+          type: number
+        videoUrl:
+          type: string
+          format: uri
+          description: Signed video URL (temporary)
+        duration:
+          type: number
+          description: Video duration in seconds
+        gnssData:
+          type: array
+          description: GPS trace (~1Hz), included when includeGnssData=true
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: number
+              lat:
+                type: number
+              lon:
+                type: number
+        imuData:
+          type: array
+          description: IMU data (~100Hz), included when includeImuData=true
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: number
+              ax:
+                type: number
+              ay:
+                type: number
+              az:
+                type: number
+              gx:
+                type: number
+              gy:
+                type: number
+              gz:
+                type: number
+    AIEventSearch_2:
       type: object
       properties:
         startDate:
@@ -150,8 +250,19 @@ components:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/AIEvent'
-    AIEvent:
+            $ref: '#/components/schemas/AIEvent_2'
+    Position:
+      type: object
+      properties:
+        lon:
+          type: number
+        lat:
+          type: number
+        alt:
+          type: number
+        azimuth:
+          type: number
+    AIEvent_2:
       type: object
       description: An AI-detected driving event.
       properties:
@@ -180,26 +291,23 @@ components:
           items:
             type: object
             additionalProperties: true
-    Position:
-      type: object
-      properties:
-        lon:
-          type: number
-        lat:
-          type: number
-        alt:
-          type: number
-        azimuth:
-          type: number
   responses:
+    RateLimited:
+      description: 'Too Many Requests — rate limit exceeded (default: 100 req/min)'
     BadRequest:
-      description: Bad request.
+      description: Bad Request — invalid geometry, missing required fields, or malformed JSON
+    Forbidden:
+      description: Forbidden — missing or invalid API key
+    PaymentRequired:
+      description: Payment Required — insufficient credits
+    NotFound:
+      description: Resource not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
+    BadRequest_2:
+      description: Bad request.
       content:
         application/json:
           schema:
@@ -217,6 +325,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: 'API key passed as Basic auth header: `Authorization: Basic <API_KEY>`'
+    ApiKeyQuery:
+      type: apiKey
+      in: query
+      name: apiKey
+      description: API key passed as query parameter (used for burst endpoints)
     basicAuth:
       type: http
       scheme: basic
@@ -226,3 +343,9 @@ components:
       in: query
       name: apiKey
       description: API key passed as the apiKey query parameter.
+externalDocs:
+  description: Full documentation
+  url: https://docs.beemaps.com
+x-refined-from:
+- hivemapper-openapi.json
+- hivemapper-beemaps-openapi.yml

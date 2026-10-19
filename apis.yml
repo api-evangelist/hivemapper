@@ -184,6 +184,16 @@ apis:
     url: conformance/hivemapper-conformance.yml
   - type: Lifecycle
     url: lifecycle/hivemapper-lifecycle.yml
+- aid: hivemapper:hivemapper-devices-api
+  name: Hivemapper Devices API
+  description: Camera calibration data
+  humanURL: https://docs.beemaps.com/api-reference
+  baseURL: https://beemaps.com/api/developer
+  tags:
+  - devices
+  properties:
+  - type: OpenAPI
+    url: openapi/hivemapper-devices-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,602 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Bee Maps Data API",
+    "description": "REST APIs for street-level imagery, AI event videos, road feature detections, and on-demand mapping from the world's largest decentralized dashcam network.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Bee Maps",
+      "url": "https://beemaps.com/contact"
+    },
+    "license": {
+      "name": "Proprietary"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://beemaps.com/api/developer",
+      "description": "Production"
+    }
+  ],
+  "security": [
+    { "ApiKeyQuery": [] }
+  ],
+  "paths": {
+    "/latest/poly": {
+      "post": {
+        "tags": ["imagery"],
+        "summary": "Query latest imagery within polygon",
+        "description": "Returns the most recent dashcam frames captured within the given GeoJSON polygon.",
+        "parameters": [
+          {
+            "name": "headings",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "description": "Include orientation data per frame"
+          },
+          {
+            "name": "min_week",
+            "in": "query",
+            "schema": { "type": "string", "format": "date" },
+            "description": "Earliest week to include (YYYY-MM-DD)"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/GeoJSONPolygon" },
+              "example": {
+                "type": "Polygon",
+                "coordinates": [[[-122.415, 37.785], [-122.413, 37.785], [-122.413, 37.787], [-122.415, 37.787], [-122.415, 37.785]]]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Imagery frames",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "frames": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/ImageryFrame" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "429": { "$ref": "#/components/responses/RateLimited" }
+        }
+      }
+    },
+    "/map-data": {
+      "post": {
+        "tags": ["map-features"],
+        "summary": "Query road detections by geometry",
+        "description": "Returns ML-detected road objects (speed limit signs, stop signs, fire hydrants, traffic lights, lane markings) within the given geometry. Use the `type` array to specify which data types to return and pass a Point geometry with radius or a Polygon.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MapDataRequest" },
+              "example": {
+                "type": ["mapFeatures"],
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [-122.413, 37.786],
+                  "radius": 250
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Map data results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "totalCreditsUsed": { "type": "number" },
+                    "totalCreditsRemaining": { "type": "number" },
+                    "mapFeatureResults": {
+                      "type": "object",
+                      "properties": {
+                        "type": { "type": "string" },
+                        "data": {
+                          "type": "array",
+                          "items": { "$ref": "#/components/schemas/MapFeature" }
+                        },
+                        "creditsUsed": { "type": "number" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "429": { "$ref": "#/components/responses/RateLimited" }
+        }
+      }
+    },
+    "/burst/create": {
+      "post": {
+        "tags": ["bursts"],
+        "summary": "Create burst requests for on-demand mapping",
+        "description": "Request fresh imagery at specific locations. Network devices in the area are dispatched to capture it. Pay only on success.",
+        "security": [{ "ApiKeyQuery": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/BurstRequest" }
+              },
+              "example": [
+                {
+                  "geojson": {
+                    "type": "Point",
+                    "coordinates": [-122.413, 37.786],
+                    "radius": 50
+                  },
+                  "credits": 125
+                }
+              ]
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created burst locations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/BurstLocation" }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "429": { "$ref": "#/components/responses/RateLimited" }
+        }
+      }
+    },
+    "/bursts": {
+      "get": {
+        "tags": ["bursts"],
+        "summary": "List burst requests",
+        "description": "List all burst requests and their statuses.",
+        "responses": {
+          "200": {
+            "description": "Burst locations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bursts": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/BurstLocation" }
+                    },
+                    "total": { "type": "integer" },
+                    "limit": { "type": "integer" },
+                    "skip": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" }
+        }
+      }
+    },
+    "/aievents/search": {
+      "post": {
+        "tags": ["ai-events"],
+        "summary": "Search AI-detected driving events",
+        "description": "Search for AI-detected driving events filtered by date range, event type, and more.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AIEventSearch" },
+              "example": {
+                "startDate": "2026-01-01T00:00:00Z",
+                "endDate": "2026-01-31T00:00:00Z",
+                "types": ["HARSH_BRAKING", "SWERVING"],
+                "limit": 50
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "AI events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AIEvent" }
+                    },
+                    "total": { "type": "integer" },
+                    "limit": { "type": "integer" },
+                    "offset": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "402": { "$ref": "#/components/responses/PaymentRequired" },
+          "429": { "$ref": "#/components/responses/RateLimited" }
+        }
+      }
+    },
+    "/aievents/{id}": {
+      "get": {
+        "tags": ["ai-events"],
+        "summary": "Get AI event by ID",
+        "description": "Retrieve a single AI event with optional high-frequency sensor data.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "AI event ID"
+          },
+          {
+            "name": "includeGnssData",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "description": "Include ~1Hz GPS trace"
+          },
+          {
+            "name": "includeImuData",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "description": "Include ~100Hz 6-axis IMU data"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "AI event details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AIEvent" }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" },
+          "402": { "$ref": "#/components/responses/PaymentRequired" }
+        }
+      }
+    },
+    "/balance": {
+      "get": {
+        "tags": ["account"],
+        "summary": "Check API credit balance",
+        "responses": {
+          "200": {
+            "description": "Current balance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "balance": { "type": "number", "example": 4250.50 },
+                    "currency": { "type": "string", "example": "USD" }
+                  }
+                }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" }
+        }
+      }
+    },
+    "/history": {
+      "get": {
+        "tags": ["account"],
+        "summary": "Query API usage history",
+        "responses": {
+          "200": {
+            "description": "Usage history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "history": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": { "type": "string", "format": "date" },
+                          "endpoint": { "type": "string" },
+                          "requests": { "type": "integer" },
+                          "credits": { "type": "number" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": { "$ref": "#/components/responses/Forbidden" }
+        }
+      }
+    },
+    "/devices": {
+      "get": {
+        "tags": ["devices"],
+        "summary": "List camera calibration parameters",
+        "description": "Returns camera calibration parameters keyed by device type (hdc, hdc-s, bee). No authentication required.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Device calibration data keyed by device type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "description": "Calibration parameters for a device type"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BasicAuth": {
+        "type": "http",
+        "scheme": "basic",
+        "description": "API key passed as Basic auth header: `Authorization: Basic <API_KEY>`"
+      },
+      "ApiKeyQuery": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "apiKey",
+        "description": "API key passed as query parameter (used for burst endpoints)"
+      }
+    },
+    "schemas": {
+      "GeoJSONPolygon": {
+        "type": "object",
+        "required": ["type", "coordinates"],
+        "properties": {
+          "type": { "type": "string", "enum": ["Polygon"] },
+          "coordinates": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": { "type": "number" },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "minItems": 4
+            }
+          }
+        }
+      },
+      "ImageryFrame": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string", "format": "uri", "description": "Signed image URL (temporary)" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "position": {
+            "type": "object",
+            "properties": {
+              "lat": { "type": "number" },
+              "lon": { "type": "number" }
+            }
+          },
+          "device": { "type": "string", "description": "Device type (e.g. 'bee')" },
+          "sequence": { "type": "string" },
+          "idx": { "type": "integer", "description": "Frame index in sequence" },
+          "width": { "type": "integer" },
+          "height": { "type": "integer" }
+        }
+      },
+      "MapFeature": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "class": { "type": "string", "description": "Detection class (e.g. speed_limit_sign, stop_sign)" },
+          "position": {
+            "type": "object",
+            "properties": {
+              "lat": { "type": "number" },
+              "lon": { "type": "number" },
+              "azimuth": { "type": "number" }
+            }
+          },
+          "properties": { "type": "object", "description": "Class-specific properties" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "dimensions": {
+            "type": "object",
+            "properties": {
+              "height": { "type": "number" },
+              "width": { "type": "number" }
+            }
+          },
+          "firstObserved": { "type": "string", "format": "date-time" },
+          "lastObserved": { "type": "string", "format": "date-time" }
+        }
+      },
+      "BurstRequest": {
+        "type": "object",
+        "required": ["geojson"],
+        "properties": {
+          "geojson": {
+            "type": "object",
+            "description": "GeoJSON Point with radius",
+            "properties": {
+              "type": { "type": "string", "enum": ["Point"] },
+              "coordinates": {
+                "type": "array",
+                "items": { "type": "number" },
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "radius": { "type": "number", "description": "Radius in meters" }
+            }
+          },
+          "credits": { "type": "integer", "description": "Credits to allocate" }
+        }
+      },
+      "BurstLocation": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "status": { "type": "string", "enum": ["active", "expired", "refunded", "completed"] },
+          "location": {
+            "type": "object",
+            "properties": {
+              "lat": { "type": "number" },
+              "lng": { "type": "number" }
+            }
+          },
+          "geojson": { "$ref": "#/components/schemas/GeoJSONPolygon" },
+          "validFrom": { "type": "string", "format": "date-time" },
+          "validUntil": { "type": "string", "format": "date-time" },
+          "hit": { "type": "boolean" },
+          "hitTimestamp": { "type": "string", "format": "date-time", "nullable": true },
+          "credits": { "type": "integer" }
+        }
+      },
+      "MapDataRequest": {
+        "type": "object",
+        "required": ["type", "geometry"],
+        "properties": {
+          "type": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["mapFeatures"] },
+            "description": "Data types to return"
+          },
+          "geometry": {
+            "type": "object",
+            "description": "GeoJSON Point with radius or Polygon",
+            "properties": {
+              "type": { "type": "string", "enum": ["Point", "Polygon"] },
+              "coordinates": { "description": "[lng, lat] for Point or ring array for Polygon" },
+              "radius": { "type": "number", "description": "Radius in meters (Point only)" }
+            }
+          }
+        }
+      },
+      "AIEventSearch": {
+        "type": "object",
+        "description": "Date range must be 31 days or less.",
+        "properties": {
+          "startDate": { "type": "string", "format": "date-time" },
+          "endDate": { "type": "string", "format": "date-time" },
+          "types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["HARSH_BRAKING", "AGGRESSIVE_ACCELERATION", "SWERVING", "HIGH_SPEED", "HIGH_G_FORCE", "STOP_SIGN_VIOLATION"]
+            }
+          },
+          "limit": { "type": "integer", "default": 50, "maximum": 500 },
+          "offset": { "type": "integer", "default": 0 }
+        }
+      },
+      "AIEvent": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "lat": { "type": "number" },
+          "lng": { "type": "number" },
+          "videoUrl": { "type": "string", "format": "uri", "description": "Signed video URL (temporary)" },
+          "duration": { "type": "number", "description": "Video duration in seconds" },
+          "gnssData": {
+            "type": "array",
+            "description": "GPS trace (~1Hz), included when includeGnssData=true",
+            "items": {
+              "type": "object",
+              "properties": {
+                "timestamp": { "type": "number" },
+                "lat": { "type": "number" },
+                "lon": { "type": "number" }
+              }
+            }
+          },
+          "imuData": {
+            "type": "array",
+            "description": "IMU data (~100Hz), included when includeImuData=true",
+            "items": {
+              "type": "object",
+              "properties": {
+                "timestamp": { "type": "number" },
+                "ax": { "type": "number" },
+                "ay": { "type": "number" },
+                "az": { "type": "number" },
+                "gx": { "type": "number" },
+                "gy": { "type": "number" },
+                "gz": { "type": "number" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Bad Request — invalid geometry, missing required fields, or malformed JSON"
+      },
+      "Forbidden": {
+        "description": "Forbidden — missing or invalid API key"
+      },
+      "PaymentRequired": {
+        "description": "Payment Required — insufficient credits"
+      },
+      "RateLimited": {
+        "description": "Too Many Requests — rate limit exceeded (default: 100 req/min)"
+      }
+    }
+  },
+  "tags": [
+    { "name": "imagery", "description": "Street-level dashcam imagery" },
+    { "name": "map-features", "description": "ML-detected road objects" },
+    { "name": "bursts", "description": "On-demand mapping requests" },
+    { "name": "ai-events", "description": "AI-detected driving events with video" },
+    { "name": "account", "description": "Account balance and usage" },
+    { "name": "devices", "description": "Camera calibration data" }
+  ],
+  "externalDocs": {
+    "description": "Full documentation",
+    "url": "https://docs.beemaps.com"
+  }
+}

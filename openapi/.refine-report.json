@@ -1,12 +1,14 @@
 {
   "provider": "hivemapper",
   "sources": [
+    "_original/hivemapper-openapi.json",
     "_ae-authored/hivemapper-beemaps-openapi.yml"
   ],
   "outputs": [
-    "hivemapper-ai-events-api-openapi.yml",
     "hivemapper-account-api-openapi.yml",
+    "hivemapper-ai-events-api-openapi.yml",
     "hivemapper-bursts-api-openapi.yml",
+    "hivemapper-devices-api-openapi.yml",
     "hivemapper-imagery-api-openapi.yml",
     "hivemapper-map-features-api-openapi.yml"
   ],
@@ -14,9 +16,15 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "hivemapper-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "hivemapper-beemaps-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "tag 'account' spans 2 source specs (hivemapper-openapi.json, hivemapper-beemaps-openapi.yml): per-path servers applied",
+    "tag 'ai-events' spans 2 source specs (hivemapper-openapi.json, hivemapper-beemaps-openapi.yml): per-path servers applied",
+    "tag 'bursts' spans 2 source specs (hivemapper-openapi.json, hivemapper-beemaps-openapi.yml): per-path servers applied",
+    "tag 'imagery' spans 2 source specs (hivemapper-openapi.json, hivemapper-beemaps-openapi.yml): per-path servers applied",
+    "tag 'map-features' spans 2 source specs (hivemapper-openapi.json, hivemapper-beemaps-openapi.yml): per-path servers applied",
+    "apis.yml register: written (+1 apis, 6 total)"
   ],
   "skipped": [
     "hivemapper-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
